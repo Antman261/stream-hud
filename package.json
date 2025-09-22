@@ -1,0 +1,36 @@
+{
+  "name": "stream-hud",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+  "prettier": {
+    "lineWidth": 110,
+    "indentWidth": 2,
+    "semiColons": true,
+    "singleQuote": true,
+    "proseWrap": "never"
+  },
+  "dependencies": {
+    "@preact/signals": "^2.0.1",
+    "@tauri-apps/plugin-fs": "~2.4.2",
+    "@tauri-apps/plugin-shell": "~2.2.0",
+    "@tauri-apps/plugin-window-state": "~2.4.0",
+    "@twurple/auth": "^7.4.0",
+    "@twurple/easy-bot": "^7.4.0",
+    "preact": "^10.25.1",
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-opener": "^2"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.9.3",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.3",
+    "@tauri-apps/cli": "^2"
+  }
+}

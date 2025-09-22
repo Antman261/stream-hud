@@ -1,0 +1,55 @@
+.mic-icon {
+    transition: transform 0.5s;
+    transition: all 0.7s;
+}
+
+.mic-icon-wrapper {
+    transition: opacity 2s;
+    position: relative;
+    width: 35px;
+    min-width: 35px;
+    height: 35px;
+}
+.bg-off.bg-stream .mic-icon-wrapper {
+    opacity: 0.6;
+}
+.mic-icon {
+    position: absolute;
+}
+
+.mic-icon.hidden {
+    opacity: 0;
+}
+
+.on-off-button.mic-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.mic-icon.mic-meter {
+    transform: scale(100%);
+}
+
+.mic-icon.mic-meter.hidden {
+    transform: scale(0%);
+}
+
+.meter-outer {
+    width: 35px;
+    height: 35px;
+    border-radius: 20px;
+    background: #b097fc;
+    box-shadow: inset 1px 1px 1px #00000049;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.meter-inner {
+    max-width: 36px;
+    max-height: 36px;
+    width: 36px;
+    height: 36px;
+    border-radius: 20px;
+}

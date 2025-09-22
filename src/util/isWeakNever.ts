@@ -1,0 +1,1 @@
+export const isWeakNever = (v: never) => console.warn('Unexpected value:', v);

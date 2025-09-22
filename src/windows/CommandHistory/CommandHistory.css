@@ -1,0 +1,83 @@
+@font-face {
+  font-family: "PlexMono";
+  src: url("/assets/IBMPlexMono-SemiBold-Latin1.woff2");
+}
+
+:root {
+  font-family: "PlexMono", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.command-history {
+  border-top: 2px solid hsla(255, 94%, 79%, 0.5);
+  height: 230px;
+  margin: 0 0 3px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-between;
+  text-align: center;
+}
+.command-history >h2{
+  font-size: 16px;
+  line-height: 1;
+  color: hsla(255, 94%, 82%, 1);
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin: 0px;
+  background:hsl(255, 44%, 30%, 0.95);
+}
+
+.command-history .entry {
+  /* border-radius: 8px; */
+  padding: 0.15em;
+  border-top: 1px solid hsla(262, 50%, 50%, 0.4) ;
+  color: #d5d4d4;
+  transition: border-color 0.25s;
+  /* box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); */
+  /* margin-top: 3px; */
+  /* backdrop-filter: blur(10px); does not currently work */
+  animation: 120ms linear slide-in;
+    /* 0.5s ease-out 11.5s fadeout forwards; */
+}
+.command-history .entry.command {
+  background-color: hsla(265, 60%, 7.5%);
+}
+.command-history .entry.notify-success {
+  background-color: hsla(111, 93%, 21%);
+}
+.command-history .entry.notify-info {
+  background-color: hsla(187, 88%, 27%);
+}.command-history .entry.notify-alert {
+  color: black;
+  background-color: hsla(56, 74%, 45%);
+}
+
+.command-history .entry.notify-warn {
+  background-color: hsla(12, 100%, 28%);
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateY(100%)
+  }
+
+  100% {
+    transform: translateY(0)
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,43 @@
+.chat-box {
+  display:flex;
+  flex-direction: column;
+  justify-content: end;
+  background: hsl(263, 47%, 15%);
+  height: 355px;
+  flex: 1;
+}
+
+.chat-message {
+padding: 5px;
+color: hsla(255, 94%, 89%, 1);
+}
+
+.username {
+  font-family: "IBM Plex Mono";
+  font-weight: 600;
+}
+.username.blue{
+  color: hsl(240, 97%, 69%);
+}
+.username.yellow{
+  color: hsl(45, 74%, 57%);
+}
+.username.red{
+  color: hsl(0, 87%, 44%);
+}
+.username.green{
+  color: hsl(90, 83%, 38%);
+}
+.username.white{
+  color: hsl(88, 25%, 90%);
+}
+.username.orange{
+  color: hsl(22, 100%, 37%);
+}
+.username.pink{
+  color: hsl(307, 94%, 46%);
+}
+.text {
+  font-family: "IBM Plex Mono";
+  font-weight: 400;
+}
