@@ -13,12 +13,21 @@ border-radius: 18px;
 box-shadow: 1px 1px 16px rgba(0, 0, 0, 0.6)
 `;
 
-const constraints: MediaStreamConstraints = {
-  audio: false,
-  video: { frameRate: 30, deviceId: 'Elgato Virtual Camera' },
+const getWebcam = async () => {
+  const devices = await navigator.mediaDevices.enumerateDevices();
+  console.log({ devices });
+  return navigator.mediaDevices.getUserMedia({
+    audio: false,
+    video: {
+      frameRate: 30,
+      height: 720,
+      width: 1280,
+      deviceId:
+        devices.find((d) => d.label === 'Elgato Virtual Camera')?.deviceId ??
+        'Elgato Virtual Camera',
+    },
+  });
 };
-
-const getWebcam = () => navigator.mediaDevices.getUserMedia(constraints);
 
 const hasStarted = signal(false);
 
@@ -29,6 +38,14 @@ export const CameraFeed = () => {
   }, ['']);
   const startVideo = useCallback(async () => {
     const webcam = await getWebcam();
+    const [webcamTrack] = webcam.getVideoTracks();
+
+    console.log('selectedWebcam:', webcamTrack?.label);
+    console.log({
+      settings: webcamTrack?.getSettings(),
+      capabilities: webcamTrack?.getCapabilities(),
+      constraints: webcamTrack?.getConstraints(),
+    });
     if (videoRef.current === null) return;
     videoRef.current.srcObject = webcam;
     videoRef.current.play();
@@ -39,7 +56,7 @@ export const CameraFeed = () => {
       <video
         ref={videoRef}
         height={420}
-        style={`margin-left: -80px;height: 490px;margin-top:-70px`}
+        style={`margin-left: -185px;height: 490px;margin-top:-70px`}
       ></video>
     </div>
   );
