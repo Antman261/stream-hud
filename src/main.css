@@ -1,0 +1,23 @@
+h2 {
+  text-align: center;
+  font-size: 16px;
+  line-height: 1;
+  color: hsla(255, 94%, 82%, 1);
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin: 0px;
+  background:hsl(255, 44%, 30%, 0.95);
+}
+
+.text {
+  font-family: "IBM Plex Mono";
+  font-weight: 500;
+  color: #f1f1f1;
+}
+.current-task{
+  width: 34%;
+}
+.current-task .text{
+  padding: 4px;
+  font-size: 12px;
+}

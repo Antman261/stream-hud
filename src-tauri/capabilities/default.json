@@ -26,10 +26,15 @@
     },
     {
       "identifier": "fs:scope",
-      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**/*" }]
+      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**/*" }, { "path": "$HOME" }]
     },
     "fs:default",
     "fs:allow-app-meta",
-    "fs:allow-write-text-file"
+    "fs:allow-write-text-file",
+    {"identifier":"fs:allow-read-text-file",
+    "allow": [{ "path": "$HOME/.current-task" }]
+  }
+,
+    "fs:allow-home-read-recursive"
   ]
 }

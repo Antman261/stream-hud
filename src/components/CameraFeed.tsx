@@ -13,21 +13,12 @@ border-radius: 18px;
 box-shadow: 1px 1px 16px rgba(0, 0, 0, 0.6)
 `;
 
-const constraints = { audio: false, video: true };
-
-const getWebcam = async () => {
-  await navigator.mediaDevices.getUserMedia(constraints);
-  const tracks = await navigator.mediaDevices.enumerateDevices();
-  const deviceId = tracks.find(
-    (d) => d.label === 'Elgato Virtual Camera'
-  )?.deviceId;
-  const cam = await navigator.mediaDevices.getUserMedia({
-    ...constraints,
-    video: { deviceId },
-  });
-  console.log(tracks);
-  return cam;
+const constraints: MediaStreamConstraints = {
+  audio: false,
+  video: { frameRate: 30, deviceId: 'Elgato Virtual Camera' },
 };
+
+const getWebcam = () => navigator.mediaDevices.getUserMedia(constraints);
 
 const hasStarted = signal(false);
 

@@ -2,6 +2,7 @@ type EventBase = { occurredAt: number };
 export type PhraseUttered = {
   type: 'PHRASE_UTTERED';
   phrase: string;
+  phrase_commands: string[][];
 } & EventBase;
 export type MicSelected = { type: 'MIC_SELECTED'; mic: string } & EventBase;
 export type Awoken = { type: 'AWOKEN' } & EventBase;

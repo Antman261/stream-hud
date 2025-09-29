@@ -32,8 +32,8 @@ export const initChatbot = async () => {
     clientSecret: twSecret,
   });
 
-  authProvider.onRefresh(async (userId, newTokenData) => {
-    console.log('New token for', userId);
+  authProvider.onRefresh(async (_userId, newTokenData) => {
+    console.log('Refreshing token');
     await writeTextFile(
       tokenPath,
       JSON.stringify(newTokenData, null, 4),
@@ -45,7 +45,10 @@ export const initChatbot = async () => {
   const bot = new Bot({
     authProvider,
     channel: 'antmancodes',
+
     chatClientOptions: { requestMembershipEvents: true },
+    // commands: toBotCommands(),
+    commands: [],
   });
   return bot;
 };

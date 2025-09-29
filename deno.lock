@@ -11,6 +11,7 @@
     "npm:@tauri-apps/plugin-window-state@2.4": "2.4.0",
     "npm:@twurple/auth@^7.4.0": "7.4.0",
     "npm:@twurple/easy-bot@^7.4.0": "7.4.0_@twurple+auth@7.4.0",
+    "npm:@twurple/eventsub-ws@^7.4.0": "7.4.0_@twurple+api@7.4.0__@twurple+auth@7.4.0_@twurple+auth@7.4.0",
     "npm:preact@^10.25.1": "10.26.0",
     "npm:typescript@~5.6.2": "5.6.3",
     "npm:vite@^6.0.3": "6.0.6"
@@ -712,6 +713,32 @@
         "tslib"
       ]
     },
+    "@twurple/eventsub-base@7.4.0_@twurple+auth@7.4.0": {
+      "integrity": "sha512-Umx0kNZKxBUTF2/MHAlnnCuNPs8Tl1Aw8EzDJI2AW10tOiWvgeCR889fKCFBPlHXvcMYSEvsItkX+pXeZ8GkeQ==",
+      "dependencies": [
+        "@d-fischer/logger",
+        "@d-fischer/shared-utils",
+        "@d-fischer/typed-event-emitter",
+        "@twurple/api",
+        "@twurple/auth",
+        "@twurple/common",
+        "tslib"
+      ]
+    },
+    "@twurple/eventsub-ws@7.4.0_@twurple+api@7.4.0__@twurple+auth@7.4.0_@twurple+auth@7.4.0": {
+      "integrity": "sha512-tA5zGmb2kK4w//V0mK5P9WXl+KwNjkXXRTv3YO8AK9sCObFag9rsqJdrBNNyx6G58NJvQzQIDtHI1U2M9q1h5w==",
+      "dependencies": [
+        "@d-fischer/connection",
+        "@d-fischer/logger",
+        "@d-fischer/shared-utils",
+        "@d-fischer/typed-event-emitter",
+        "@twurple/api",
+        "@twurple/auth",
+        "@twurple/common",
+        "@twurple/eventsub-base",
+        "tslib"
+      ]
+    },
     "@types/estree@1.0.6": {
       "integrity": "sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw=="
     },
@@ -1067,6 +1094,7 @@
         "npm:@tauri-apps/plugin-window-state@2.4",
         "npm:@twurple/auth@^7.4.0",
         "npm:@twurple/easy-bot@^7.4.0",
+        "npm:@twurple/eventsub-ws@^7.4.0",
         "npm:preact@^10.25.1",
         "npm:typescript@~5.6.2",
         "npm:vite@^6.0.3"

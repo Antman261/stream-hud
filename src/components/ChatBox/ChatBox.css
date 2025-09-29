@@ -5,11 +5,36 @@
   background: hsl(263, 47%, 15%);
   height: 355px;
   flex: 1;
+  padding-bottom: 2px;
 }
 
 .chat-message {
-padding: 5px;
-color: hsla(255, 94%, 89%, 1);
+  position: relative;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: hsla(255, 94%, 89%, 1);
+}
+
+.message-controls {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  opacity: 0;
+  padding: 0 4px;
+  transition: opacity 1s ease;
+}
+.chat-message:hover .message-controls {
+  opacity: 90%;
+  
+}
+.message-control-item {
+ text-align: right;
+  cursor: pointer;
 }
 
 .username {
@@ -17,7 +42,7 @@ color: hsla(255, 94%, 89%, 1);
   font-weight: 600;
 }
 .username.blue{
-  color: hsl(240, 97%, 69%);
+  color: #6363fd;
 }
 .username.yellow{
   color: hsl(45, 74%, 57%);
@@ -36,8 +61,4 @@ color: hsla(255, 94%, 89%, 1);
 }
 .username.pink{
   color: hsl(307, 94%, 46%);
-}
-.text {
-  font-family: "IBM Plex Mono";
-  font-weight: 400;
 }

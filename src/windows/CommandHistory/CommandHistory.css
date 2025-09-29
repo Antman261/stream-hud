@@ -15,35 +15,28 @@
 }
 
 .command-history {
-  border-top: 2px solid hsla(255, 94%, 79%, 0.5);
   height: 230px;
+  max-height: 230px;
   margin: 0 0 3px 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content:space-between;
   text-align: center;
 }
-.command-history >h2{
-  font-size: 16px;
-  line-height: 1;
-  color: hsla(255, 94%, 82%, 1);
-  padding-top: 4px;
-  padding-bottom: 4px;
-  margin: 0px;
-  background:hsl(255, 44%, 30%, 0.95);
+.command-history-entries {
+  overflow: clip;
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-end;
 }
 
 .command-history .entry {
-  /* border-radius: 8px; */
   padding: 0.15em;
   border-top: 1px solid hsla(262, 50%, 50%, 0.4) ;
   color: #d5d4d4;
   transition: border-color 0.25s;
-  /* box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); */
-  /* margin-top: 3px; */
-  /* backdrop-filter: blur(10px); does not currently work */
   animation: 120ms linear slide-in;
-    /* 0.5s ease-out 11.5s fadeout forwards; */
 }
 .command-history .entry.command {
   background-color: hsla(265, 60%, 7.5%);

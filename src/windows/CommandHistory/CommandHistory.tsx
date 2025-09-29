@@ -26,9 +26,35 @@ type TypeElements = {
   [k in HistoryEvent['type']]: (e: OfType<HistoryEvent, k>) => JSX.Element;
 };
 const entryElements = {
-  PHRASE_UTTERED: (e) => <div className="entry command">{e.phrase}</div>,
+  PHRASE_UTTERED: (e) => (
+    <div className="entry command">{e.phrase_commands.map(CommandEntry)}</div>
+  ),
   NOTIFIED: (e) => <div className={`entry notify-${e.kind}`}>{e.msg}</div>,
 } as const satisfies TypeElements;
+
+const CommandEntry = (words: string[]) => {
+  const text = words.join(' ');
+  const color = toWordColor(text);
+  return <span style={`color: ${color}`}>{text} </span>;
+};
+const textColors: Record<string, string> = {};
+const toWordColor = (text: string): string =>
+  (textColors[text] = textColors[text] ??= nextColor());
+const colors = [
+  '#6363fd',
+  'hsl(0, 87%, 44%)',
+  'hsl(45, 74%, 57%)',
+  'hsl(307, 94%, 46%)',
+  'hsl(88, 25%, 90%)',
+  'hsl(22, 100%, 37%)',
+  'hsl(90, 83%, 38%)',
+];
+let colorIdx = 0;
+const nextColor = (): string => {
+  const color = colors[colorIdx]!;
+  colorIdx = (colorIdx + 1) % colors.length;
+  return color;
+};
 
 const CommandHistoryItem = <E extends HistoryEvent>(e: E) =>
   // @ts-expect-error ? shrug
