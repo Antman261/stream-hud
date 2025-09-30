@@ -27,15 +27,25 @@ type TypeElements = {
 };
 const entryElements = {
   PHRASE_UTTERED: (e) => (
-    <div className="entry command">{e.phrase_commands.map(CommandEntry)}</div>
+    <div className="entry command">
+      {e.phrase_commands
+        .map(CommandEntry)
+        .reduce<(ReturnType<typeof CommandEntry> | string)[]>((p, a, i) => {
+          if (i > 0 && i < e.phrase_commands.length) p.push(Sep());
+          p.push(a);
+          return p;
+        }, [] as unknown as (ReturnType<typeof CommandEntry> | string)[])}
+    </div>
   ),
   NOTIFIED: (e) => <div className={`entry notify-${e.kind}`}>{e.msg}</div>,
 } as const satisfies TypeElements;
 
+const Sep = () => <span class="command-separator">|</span>;
+
 const CommandEntry = (words: string[]) => {
   const text = words.join(' ');
   const color = toWordColor(text);
-  return <span style={`color: ${color}`}>{text} </span>;
+  return <span style={`color: ${color}`}>{text}</span>;
 };
 const textColors: Record<string, string> = {};
 const toWordColor = (text: string): string =>

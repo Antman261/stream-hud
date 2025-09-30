@@ -20,4 +20,13 @@ h2 {
 .current-task .text{
   padding: 4px;
   font-size: 12px;
+
+}
+.command-separator {
+  display: inline-block;
+  font-size: 6px;
+  color: #777;
+  padding-right:4px;
+  padding-left:4px; 
+  margin-bottom: 2px;
 }
