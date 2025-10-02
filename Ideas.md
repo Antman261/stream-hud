@@ -34,3 +34,8 @@
 ## Other Information
 
 [x] Current Task
+
+## Quality of Life Improvements
+
+* Camera controls: Camera off, select camera
+* Compact mode

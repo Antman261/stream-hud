@@ -11,7 +11,7 @@ type BotCommandHandler = (
 type CommandMap = Record<string, BotCommandHandler>;
 
 const reply = (text: string) => (e: MessageEvent) => e.reply(pre + text);
-const say = (text: string) => (e: MessageEvent, bot: Bot) =>
+const say = (text: string) => (_e: MessageEvent, bot: Bot) =>
   bot.say(username, pre + text);
 
 const commandMap: CommandMap = {

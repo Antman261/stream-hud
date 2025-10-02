@@ -1,0 +1,15 @@
+.start-camera {
+  z-index: 9;
+  position: relative
+}
+.camera-video {
+  margin-left: -185px;height: 490px;margin-top:-74px;
+}
+.selected-camera {
+  position: absolute;
+  opacity:0;
+}
+
+.selected-camera:hover{
+  opacity:1;
+}

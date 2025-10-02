@@ -46,7 +46,7 @@ function getOperator<T>(ar: T[]): Operator<T> {
   const mxs = new Map<Mapper[], Mapper>();
   return {
     add: (args) => ar.push(...(args ?? [])),
-    remove: (args, i) => args?.includes(ar[i]) && ar.splice(i, 1).length,
+    remove: (args, i) => args?.includes(ar[i]!) && ar.splice(i, 1).length,
     map(args, idx) {
       if (args.length === 0) return;
       const mx =
