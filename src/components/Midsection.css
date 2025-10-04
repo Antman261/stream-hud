@@ -1,0 +1,30 @@
+.midsection {
+  display: flex;
+  flex-direction:row;
+  border-top: 2px solid hsla(255, 94%, 79%, 0.5);
+  border-bottom: 2px solid hsla(255, 94%, 79%, 0.5);
+}
+
+.talon-tray-section {
+  flex-grow: 1;
+  border-left: 2px solid hsla(255, 94%, 79%, 0.5);
+}
+
+.current-task .text {
+  padding: 4px;
+  font-size: 12px;
+
+}
+
+.command-separator {
+  display: inline-block;
+  font-size: 6px;
+  color: #777;
+  padding-right: 3px;
+  padding-left: 3px;
+  vertical-align: middle;
+}
+
+.task-section {
+  width: 38%;
+}

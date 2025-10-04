@@ -34,8 +34,10 @@
 ## Other Information
 
 [x] Current Task
+[x] Current Project
 
 ## Quality of Life Improvements
 
 * Camera controls: Camera off, select camera
 * Compact mode
+* Fit below menubar

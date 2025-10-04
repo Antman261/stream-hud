@@ -32,10 +32,10 @@ body {
 
 html {
   height: calc(100vh - 4px);
+  max-height: calc(100vh - 4px);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  overflow: clip;
   border: 2px solid hsla(255, 94%, 79%, 0.5);
   border-right: 0;
   border-radius: 9px 0 0 9px;
@@ -43,7 +43,6 @@ html {
 }
 
 :root {
-  font-family: "PlexMono", Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: bold;
   font-synthesis: none;
@@ -51,6 +50,14 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 4px);
+  background: hsl(263, 47%, 15%);
+  font-family: "IBM Plex Mono";
 }
 
 .button-deck {

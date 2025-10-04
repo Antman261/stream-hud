@@ -32,7 +32,7 @@
     "fs:allow-app-meta",
     "fs:allow-write-text-file",
     {"identifier":"fs:allow-read-text-file",
-    "allow": [{ "path": "$HOME/.current-task" }]
+    "allow": [{ "path": "$HOME/.current-task" }, {"path": "$HOME/.current-project"}]
   }
 ,
     "fs:allow-home-read-recursive"

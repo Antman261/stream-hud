@@ -12,6 +12,7 @@
     "npm:@twurple/auth@^7.4.0": "7.4.0",
     "npm:@twurple/easy-bot@^7.4.0": "7.4.0_@twurple+auth@7.4.0",
     "npm:@twurple/eventsub-ws@^7.4.0": "7.4.0_@twurple+api@7.4.0__@twurple+auth@7.4.0_@twurple+auth@7.4.0",
+    "npm:obs-websocket-js@^5.0.6": "5.0.6_ws@8.18.1",
     "npm:preact@^10.25.1": "10.26.0",
     "npm:typescript@~5.6.2": "5.6.3",
     "npm:vite@^6.0.3": "6.0.6"
@@ -394,6 +395,9 @@
         "@jridgewell/resolve-uri",
         "@jridgewell/sourcemap-codec"
       ]
+    },
+    "@msgpack/msgpack@2.8.0": {
+      "integrity": "sha512-h9u4u/jiIRKbq25PM+zymTyW6bhTzELvOoUd+AvYriWOAKpLGnIamaET3pnHYoI5iYphAHBI4ayx0MehR+VVPQ=="
     },
     "@preact/preset-vite@2.10.1_@babel+core@7.26.9_vite@6.0.6_preact@10.26.0": {
       "integrity": "sha512-59lyGBXNfZIr5OOuBUB4/IB8AqF/ULbvYnyItgK/2BJnsGJqaeaJobRVtMp1129obHQuj8oZ/dVxB9inmH8Xig==",
@@ -779,6 +783,9 @@
     "convert-source-map@2.0.0": {
       "integrity": "sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg=="
     },
+    "crypto-js@4.2.0": {
+      "integrity": "sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q=="
+    },
     "css-select@5.1.0": {
       "integrity": "sha512-nwoRF1rvRRnnCqqY7updORDsuqKzqYJ28+oSMaJMMgOauh3fvwHqMS7EZpIPqK8GL+g9mKxF1vP/ZjSeNjEVHg==",
       "dependencies": [
@@ -867,6 +874,9 @@
     "estree-walker@2.0.2": {
       "integrity": "sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w=="
     },
+    "eventemitter3@5.0.1": {
+      "integrity": "sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA=="
+    },
     "fsevents@2.3.3": {
       "integrity": "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==",
       "os": ["darwin"],
@@ -892,6 +902,12 @@
         "@d-fischer/typed-event-emitter",
         "klona",
         "tslib"
+      ]
+    },
+    "isomorphic-ws@5.0.0_ws@8.18.1": {
+      "integrity": "sha512-muId7Zzn9ywDsyXgTIafTry2sV3nySZeUDe6YedVd1Hvuuep5AsIlqK+XefWpYTyJG5e503F2xIuT2lcU6rCSw==",
+      "dependencies": [
+        "ws"
       ]
     },
     "js-tokens@4.0.0": {
@@ -950,6 +966,18 @@
       "integrity": "sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==",
       "dependencies": [
         "boolbase"
+      ]
+    },
+    "obs-websocket-js@5.0.6_ws@8.18.1": {
+      "integrity": "sha512-tHRq8py1XrdlMhSV+N/KTGHqoRIcsBBXbjcA9ex21k128iQ7YXjxzNWs3s9gidP1tEcIyVuJu8FnPgrSBWGm0Q==",
+      "dependencies": [
+        "@msgpack/msgpack",
+        "crypto-js",
+        "debug",
+        "eventemitter3",
+        "isomorphic-ws",
+        "type-fest",
+        "ws"
       ]
     },
     "picocolors@1.1.1": {
@@ -1026,6 +1054,9 @@
     "tslib@2.8.1": {
       "integrity": "sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w=="
     },
+    "type-fest@3.13.1": {
+      "integrity": "sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g=="
+    },
     "typescript@5.6.3": {
       "integrity": "sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==",
       "bin": true
@@ -1095,6 +1126,7 @@
         "npm:@twurple/auth@^7.4.0",
         "npm:@twurple/easy-bot@^7.4.0",
         "npm:@twurple/eventsub-ws@^7.4.0",
+        "npm:obs-websocket-js@^5.0.6",
         "npm:preact@^10.25.1",
         "npm:typescript@~5.6.2",
         "npm:vite@^6.0.3"

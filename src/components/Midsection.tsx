@@ -1,6 +1,7 @@
-import { currentTask } from '../state/task';
+import { currentProject, currentTask } from '../state/task';
 import { ButtonDeck } from '../windows/ButtonDeck';
 import { CommandHistory } from '../windows/CommandHistory';
+import './Midsection.css';
 
 const CurrentTask = () => {
   return (
@@ -10,29 +11,28 @@ const CurrentTask = () => {
     </div>
   );
 };
-
-const talonTrayCss = `
-flex-grow: 1;
-border-left: 2px solid hsla(255, 94%, 79%, 0.5);
-`;
+const CurrentProject = () => {
+  return (
+    <div class="semi-section current-task">
+      <h2>Project</h2>
+      <div class="text">{currentProject.value}</div>
+    </div>
+  );
+};
 
 const TalonTray = () => (
-  <div style={talonTrayCss}>
+  <div class="talon-tray-section">
     <CommandHistory />
     <ButtonDeck />
   </div>
 );
 
-const midsectionCss = `
-display: flex;
-flex-direction:row;
-border-top: 2px solid hsla(255, 94%, 79%, 0.5);
-border-bottom: 2px solid hsla(255, 94%, 79%, 0.5);
-`;
-
 export const Midsection = () => (
-  <div style={midsectionCss}>
-    <CurrentTask />
+  <div class="midsection">
+    <div class="task-section column">
+      <CurrentTask />
+      <CurrentProject />
+    </div>
     <TalonTray />
   </div>
 );

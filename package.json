@@ -24,6 +24,7 @@
     "@twurple/auth": "^7.4.0",
     "@twurple/easy-bot": "^7.4.0",
     "@twurple/eventsub-ws": "^7.4.0",
+    "obs-websocket-js": "^5.0.6",
     "preact": "^10.25.1",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-opener": "^2"

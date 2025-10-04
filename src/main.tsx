@@ -6,11 +6,21 @@ import { CameraFeed } from './components/CameraFeed';
 import { ChatBox } from './components/ChatBox/ChatBox';
 import { Midsection } from './components/Midsection';
 import './main.css';
+import { initWebsocket } from './service/obs';
+import { StatsBox } from './components/StatsBox/StatsBox';
 
 const App = () => {
-  return [<ChatBox />, <Midsection />, <CameraFeed />];
+  return (
+    <main>
+      <StatsBox />
+      <ChatBox />
+      <Midsection />
+      <CameraFeed />
+    </main>
+  );
 };
 
 render(<App />, document.getElementById('root')!);
 windowManager.init();
 initTalonPolling();
+initWebsocket();

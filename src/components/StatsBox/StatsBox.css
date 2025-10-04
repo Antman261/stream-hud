@@ -1,0 +1,13 @@
+.stats-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  flex-grow:0;
+  color: #f1f1f1;
+  padding-top: 2px;
+  margin-right: 4px;
+  font-size: 12px;
+}
+.stats-item strong {
+  font-weight: boulder;
+}
