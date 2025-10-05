@@ -3,17 +3,6 @@
   src: url("/assets/IBMPlexMono-SemiBold-Latin1.woff2");
 }
 
-:root {
-  font-family: "PlexMono", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
 .command-history {
   height: 230px;
   max-height: 230px;

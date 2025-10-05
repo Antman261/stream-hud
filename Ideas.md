@@ -24,8 +24,7 @@
 
 ## Talon
 
-* Mouse Jump on/off
-* Recognition Model
+[x] Recognition Model
 * Microphone
 [x] Color Coding for Commands: e.g. indicate which commands are chained together
 * "Save Recording" Status
@@ -40,4 +39,6 @@
 
 * Camera controls: Camera off, select camera
 * Compact mode
-* Fit below menubar
+* Save recent voice command history to local storage for reloading stream hud
+[x] Save recent chat messages to local storage for reloading stream hud
+[x] Fit below menubar

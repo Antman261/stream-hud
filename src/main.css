@@ -1,3 +1,61 @@
+@font-face {
+  font-family: "PlexMono";
+  src: 
+  url("/assets/IBMPlexMono-Bold-Latin1.woff2"),
+  url("/assets/IBMPlexMono-BoldItalic-Latin1.woff2"),
+  url("/assets/IBMPlexMono-ExtraLight-Latin1.woff2"),
+  url("/assets/IBMPlexMono-ExtraLightItalic-Latin1.woff2"),
+  url("/assets/IBMPlexMono-Italic-Latin1.woff2"),
+  url("/assets/IBMPlexMono-Light-Latin1.woff2"),
+  url("/assets/IBMPlexMono-Medium-Latin1.woff2"),
+  url("/assets/IBMPlexMono-MediumItalic-Latin1.woff2"),
+  url("/assets/IBMPlexMono-Regular-Latin1.woff2"),
+  url("/assets/IBMPlexMono-SemiBoldItalic-Latin1.woff2"),
+  url("/assets/IBMPlexMono-Text-Latin1.woff2"),
+  url("/assets/IBMPlexMono-TextItalic-Latin1.woff2"),
+  url("/assets/IBMPlexMono-Thin-Latin1.woff2"),
+  url("/assets/IBMPlexMono-ThinItalic-Latin1.woff2"),
+  url("/assets/IBMPlexMono-SemiBold-Latin1.woff2");
+}
+
+html,
+body {
+  background: transparent;
+  margin: 0 0 0 0;
+  scrollbar-width: none;
+}
+
+html {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-size: 14px;
+  font-weight: bold;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+main {
+  border: 2px solid hsla(255, 94%, 79%, 0.5);
+  border-right: 0;
+  border-radius: 12px 0 0 12px;
+  /* background:hsla(263, 47%, 18%, 1); */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background: hsl(263, 47%, 15%);
+  font-family: "IBM Plex Mono";
+}
 h2 {
   text-align: center;
   font-size: 16px;

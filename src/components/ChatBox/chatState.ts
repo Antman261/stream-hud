@@ -14,8 +14,9 @@ export type Message = {
 };
 
 const MESSAGE_DURATION_TS = 5 * 60 * 1000;
+const recent = JSON.parse(localStorage.getItem('recentChat') ?? '[]');
 
-export const messages = mergeObjects(signal<Message[]>([]), {
+export const messages = mergeObjects(signal<Message[]>(recent), {
   addMessage: (msg: Omit<Message, 'sentAt'>) => {
     messages.value = [
       Object.assign(msg, { sentAt: Date.now() }),
@@ -27,5 +28,9 @@ export const messages = mergeObjects(signal<Message[]>([]), {
     messages.value = messages.value.filter((m) => m.sentAt > expiryAge);
   },
 } as const);
+
+messages.subscribe(() => {
+  localStorage.setItem('recentChat', JSON.stringify(messages.value));
+});
 
 setInterval(messages.cleanExpiredMessages, 10_000);

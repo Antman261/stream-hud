@@ -6,11 +6,13 @@ import { OBSWebSocket } from 'obs-websocket-js';
 import { obsWebsocketParams } from '../env';
 import { signal } from '@preact/signals';
 
+type ObsStats = Awaited<ReturnType<typeof obs.call<'GetStats'>>>;
+
 const obs = new OBSWebSocket();
 
 let hasInit = false;
 let statsInterval: number | undefined;
-export const stats = signal<Record<string, string | number>>({});
+export const obsStats = signal<ObsStats | undefined>();
 
 export const initWebsocket = async () => {
   if (hasInit) return;
@@ -18,7 +20,7 @@ export const initWebsocket = async () => {
   await obs.connect(...obsWebsocketParams);
   clearInterval(statsInterval);
   setInterval(async () => {
-    stats.value = await obs.call('GetStats');
+    obsStats.value = await obs.call('GetStats');
     // console.log(stats.value);
   }, 2000);
 };

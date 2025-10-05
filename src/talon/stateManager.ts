@@ -6,13 +6,18 @@ export type TalonState = {
   mic: string;
   status: 'ASLEEP' | 'AWAKE';
   modes: string[];
+  engine: string;
 };
 
 export const state = signal<TalonState>({
   mic: '',
   status: 'AWAKE',
   modes: [],
+  engine: '',
 });
+export const engineName = computed(() =>
+  state.value.engine.split(' (')[0]!.replace('Conformer D', 'D')
+);
 export const isMicActive = computed(() => state.value.mic !== 'None');
 export const isAwake = computed(() => state.value.status === 'AWAKE');
 export const modes = computed(() => {
