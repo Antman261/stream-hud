@@ -53,6 +53,7 @@ main {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  justify-content: space-between;
   background: hsl(263, 47%, 15%);
   font-family: "IBM Plex Mono";
 }

@@ -38,6 +38,7 @@ const reducers = {
   PHRASE_UTTERED: (state) => state,
   MODES_CHANGED: (state, { modes }) => ({ ...state, modes }),
   ENGINE_CHANGED: (state, { engine }) => ({ ...state, engine }),
+  LAYOUT_CHANGED: (state) => state,
 } as const satisfies { [key in EventType]: Reducer<key> };
 
 const wiretaps = {
@@ -47,5 +48,6 @@ const wiretaps = {
   PHRASE_UTTERED: new Set<Listener<'PHRASE_UTTERED'>>(),
   MODES_CHANGED: new Set<Listener<'MODES_CHANGED'>>(),
   ENGINE_CHANGED: new Set<Listener<'ENGINE_CHANGED'>>(),
+  LAYOUT_CHANGED: new Set<Listener<'ENGINE_CHANGED'>>(),
 } as const;
 const getTaps = <T extends EventType>(e: T) => wiretaps[e] as Set<Listener<T>>;

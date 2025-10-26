@@ -20,19 +20,23 @@ const CurrentProject = () => {
   );
 };
 
-const TalonTray = () => (
+export const TalonTray = () => (
   <div class="talon-tray-section">
     <CommandHistory />
     <ButtonDeck />
   </div>
 );
 
+export const TaskSection = () => (
+  <div class="task-section column">
+    <CurrentTask />
+    <CurrentProject />
+  </div>
+);
+
 export const Midsection = () => (
   <div class="midsection">
-    <div class="task-section column">
-      <CurrentTask />
-      <CurrentProject />
-    </div>
+    <TaskSection />
     <TalonTray />
   </div>
 );

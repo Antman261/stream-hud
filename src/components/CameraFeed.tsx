@@ -1,14 +1,11 @@
 import { signal } from '@preact/signals';
-import { useCallback, useEffect, useRef } from 'preact/hooks';
+import { useCallback, useRef } from 'preact/hooks';
 import './CameraFeed.css';
 
 const style = `
 max-height: 415px;
-width: 422px;
 overflow-y: clip;
-margin-top: 10px;
-margin-bottom: 5px;
-margin-left: 7px;
+margin: 7px;
 border-radius: 18px;
 box-shadow: 1px 1px 16px rgba(0, 0, 0, 0.6)
 `;
@@ -24,7 +21,7 @@ const getWebcam = async () => {
       height: 1080,
       width: 1920,
       deviceId:
-        devices.find((d) => d.label === 'Elgato Virtual Camera')?.deviceId ??
+        devices.find((d) => d.label === 'OBS Virtual Camera')?.deviceId ??
         'Elgato Virtual Camera',
     },
   });

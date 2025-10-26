@@ -19,7 +19,13 @@ export type ModesChanged = {
 export type EngineChanged = {
   type: 'ENGINE_CHANGED';
   engine: string;
-};
+} & EventBase;
+
+export type LayoutKind = 'stream' | 'narrow';
+export type LayoutChanged = {
+  type: 'LAYOUT_CHANGED';
+  kind: LayoutKind;
+} & EventBase;
 
 export type Notified = {
   type: 'NOTIFIED';
@@ -33,7 +39,8 @@ export type TalonEvent =
   | Awoken
   | Drowsed
   | Notified
-  | EngineChanged;
+  | EngineChanged
+  | LayoutChanged;
 
 export type EventMap = {
   PHRASE_UTTERED: PhraseUttered;
@@ -42,5 +49,6 @@ export type EventMap = {
   DROWSED: Drowsed;
   MODES_CHANGED: ModesChanged;
   ENGINE_CHANGED: EngineChanged;
+  LAYOUT_CHANGED: LayoutChanged;
 };
 export type EventType = keyof EventMap;

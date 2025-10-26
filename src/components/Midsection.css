@@ -8,6 +8,7 @@
 .talon-tray-section {
   flex-grow: 1;
   border-left: 2px solid hsla(255, 94%, 79%, 0.5);
+  width: 62%;
 }
 
 .current-task .text {

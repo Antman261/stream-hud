@@ -1,49 +1,53 @@
 import { initChatbot } from '../../service/twitch';
 import { EventSubWsListener } from '@twurple/eventsub-ws';
 import { ChatMessages } from './chatState';
-import { Bot, MessageEvent } from '@twurple/easy-bot';
+import { Bot } from '@twurple/easy-bot';
 import { handleCommands } from './commands';
-import { pre, username } from './constants';
+import { followIntervalMs, followText, pre, username } from './constants';
 
 type Listener = ReturnType<Bot['on']>;
+let bot: Bot;
+export const getBot = (): Bot => bot;
+const sayBot = (text: string) => bot.say(username, pre + text);
 
 const userColorMap: Record<string, string> = {};
-
+// https://static-cdn.jtvnw.net/emoticons/v2/62836/static/light/3.0
 export const setupChatbot = async (messages: ChatMessages) => {
   try {
     const listeners: Listener[] = [];
-    const bot = await initChatbot();
+    bot = await initChatbot();
     const user = await bot.api.users.getUserByName(username);
     if (user == null)
       throw new Error(
         `No user returned from bot.api.users.getUserByName("${username}")`!
       );
+    const followInterval = setInterval(
+      () => sayBot(followText),
+      followIntervalMs
+    );
     const websocket = new EventSubWsListener({ apiClient: bot.api });
     websocket.onChannelFollow(user, user, (e) => {
       console.log('onChannelFollow:', e);
       bot.say(username, pre + `Thanks for the follow ${e.userDisplayName}!`);
     });
     websocket.onChannelChatMessage(user, user, (d) => {
-      console.log('onChannelChatMessage:', d);
+      messages.addMessage({
+        id: d.messageId,
+        name: d.chatterDisplayName,
+        text: d.messageText,
+        userId: d.chatterId,
+        fragments: d.messageParts,
+        color: getUserColor(d.chatterId),
+      });
     });
+    websocket.start();
     listeners.push(
       bot.onMessage(async (e) => {
-        const { text, userId } = e;
-        const message = {
-          name: e.userDisplayName,
-          text,
-          userId,
-          color: await getUserColor(e, bot),
-          deleteMessage: async () => {
-            messages.value = messages.value.filter((msg) => msg !== message);
-            await e.delete();
-          },
-        };
-        messages.addMessage(message);
         await handleCommands(bot, e);
       })
     );
     return () => {
+      clearInterval(followInterval);
       websocket.stop();
       listeners.forEach(bot.removeListener.bind(bot));
     };
@@ -52,12 +56,13 @@ export const setupChatbot = async (messages: ChatMessages) => {
   }
 };
 
-const getUserColor = async (e: MessageEvent, bot: Bot) => {
-  const color = userColorMap[e.userId];
+const getUserColor = (userId: string) => {
+  const color = userColorMap[userId];
   if (color) return color;
-  const user = await e.getUser();
-  const colorResult = await bot.api.chat.getColorForUser(user);
-  return (userColorMap[e.userId] = colorResult ?? nextColor());
+  // const user = await e.getUser();
+  // const colorResult = await bot.api.chat.getColorForUser(user);
+  // return (userColorMap[e.userId] = colorResult ?? nextColor());
+  return (userColorMap[userId] = nextColor());
 };
 const colors = [
   '#6363fd',

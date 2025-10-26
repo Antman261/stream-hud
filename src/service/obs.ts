@@ -17,10 +17,18 @@ export const obsStats = signal<ObsStats | undefined>();
 export const initWebsocket = async () => {
   if (hasInit) return;
   hasInit = true;
-  await obs.connect(...obsWebsocketParams);
-  clearInterval(statsInterval);
-  setInterval(async () => {
-    obsStats.value = await obs.call('GetStats');
-    // console.log(stats.value);
-  }, 2000);
+  try {
+    await obs.connect(...obsWebsocketParams);
+    clearInterval(statsInterval);
+    setInterval(async () => {
+      try {
+        obsStats.value = await obs.call('GetStats');
+      } catch (error) {
+        console.log(error);
+      }
+      // console.log(stats.value);
+    }, 2000);
+  } catch (error) {
+    console.log(error);
+  }
 };

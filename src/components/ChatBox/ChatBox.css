@@ -17,7 +17,9 @@
   padding-right: 5px;
   color: hsla(255, 94%, 89%, 1);
 }
-
+.emote > img {
+  height: 18px;
+}
 .message-controls {
   position: absolute;
   right: 0;

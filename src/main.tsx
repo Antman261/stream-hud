@@ -2,25 +2,13 @@ import './font/css/ibm-plex-mono-all.min.css';
 import { render } from 'preact';
 import { initTalonPolling } from './talon';
 import { windowManager } from './windowManager';
-import { CameraFeed } from './components/CameraFeed';
-import { ChatBox } from './components/ChatBox/ChatBox';
-import { Midsection } from './components/Midsection';
 import './main.css';
+import './main-narrow.css';
 import { initWebsocket } from './service/obs';
-import { StatsBox } from './components/StatsBox/StatsBox';
+import { Layout } from './Layouts';
 
-const App = () => {
-  return (
-    <main>
-      <StatsBox />
-      <ChatBox />
-      <Midsection />
-      <CameraFeed />
-    </main>
-  );
-};
+render(<Layout />, document.getElementById('root')!);
 
-render(<App />, document.getElementById('root')!);
-windowManager.init();
+windowManager().then((wm) => wm.init());
 initTalonPolling();
 initWebsocket();
