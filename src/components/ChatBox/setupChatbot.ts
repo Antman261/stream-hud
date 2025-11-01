@@ -4,6 +4,7 @@ import { ChatMessages } from './chatState';
 import { Bot } from '@twurple/easy-bot';
 import { handleCommands } from './commands';
 import { followIntervalMs, followText, pre, username } from './constants';
+import { isStreaming } from '../../service/obs';
 
 type Listener = ReturnType<Bot['on']>;
 let bot: Bot;
@@ -21,10 +22,12 @@ export const setupChatbot = async (messages: ChatMessages) => {
       throw new Error(
         `No user returned from bot.api.users.getUserByName("${username}")`!
       );
-    const followInterval = setInterval(
-      () => sayBot(followText),
-      followIntervalMs
-    );
+    const followInterval = setInterval(() => {
+      const hasRecentActivity = messages.value.length > 0;
+      if (hasRecentActivity && isStreaming.value) {
+        sayBot(followText);
+      }
+    }, followIntervalMs);
     const websocket = new EventSubWsListener({ apiClient: bot.api });
     websocket.onChannelFollow(user, user, (e) => {
       console.log('onChannelFollow:', e);
@@ -37,7 +40,7 @@ export const setupChatbot = async (messages: ChatMessages) => {
         text: d.messageText,
         userId: d.chatterId,
         fragments: d.messageParts,
-        color: getUserColor(d.chatterId),
+        color: d.color ?? getUserColor(d.chatterId),
       });
     });
     websocket.start();
@@ -56,14 +59,8 @@ export const setupChatbot = async (messages: ChatMessages) => {
   }
 };
 
-const getUserColor = (userId: string) => {
-  const color = userColorMap[userId];
-  if (color) return color;
-  // const user = await e.getUser();
-  // const colorResult = await bot.api.chat.getColorForUser(user);
-  // return (userColorMap[e.userId] = colorResult ?? nextColor());
-  return (userColorMap[userId] = nextColor());
-};
+const getUserColor = (userId: string): string =>
+  userColorMap[userId] ?? (userColorMap[userId] = nextColor());
 const colors = [
   '#6363fd',
   'hsl(0, 87%, 44%)',

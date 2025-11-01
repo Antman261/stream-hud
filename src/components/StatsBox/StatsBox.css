@@ -33,3 +33,10 @@
 .stats-scope:last-child {
   padding-right: 0;
 }
+.stats-box .clock {
+  flex-grow: 1;
+  text-align: left;
+  padding-left: 4px;
+  font-size: 14px;
+  color: hsl(290, 75%, 75%)
+}

@@ -1,44 +1,44 @@
-import { signal } from '@preact/signals';
 import { CameraFeed } from './components/CameraFeed';
 import { ChatBox } from './components/ChatBox/ChatBox';
-import { Midsection, TalonTray, TaskSection } from './components/Midsection';
+import { Midsection } from './components/Midsection';
 import { StatsBox } from './components/StatsBox/StatsBox';
-import { LayoutKind } from './talon';
 import { onEvent } from './talon/reducer';
+import { layout } from './layoutState';
+import { isStreaming } from './service/obs';
+import { Truthy } from './components/Defined';
+import { toClass } from './util';
 import { windowManager } from './windowManager';
+import { isCameraLayout } from './isCameraLayout';
 
-const layout = signal<LayoutKind>('stream');
-const layoutWidths: Record<LayoutKind, number> = {
-  stream: 440,
-  narrow: 360,
+const updateWindowSize = async () => {
+  const wm = await windowManager();
+  if (isStreaming.value) return await wm.setStreaming();
+  if (isCameraLayout.value) return wm.setWithCamera();
+  await wm.setSmall();
 };
 onEvent('LAYOUT_CHANGED', (e) => {
   layout.value = e.kind;
-  (async () => {
-    const wm = await windowManager();
-    await wm.setWidth(layoutWidths[e.kind]);
-  })();
 });
+layout.subscribe(updateWindowSize);
+isStreaming.subscribe(updateWindowSize);
 
 export const Layout = () => {
-  switch (layout.value) {
-    case 'stream':
-      return (
-        <main class="stream">
-          <StatsBox />
+  const mainClasses = [
+    isStreaming.value ? 'stream' : 'narrow',
+    isCameraLayout.value ? undefined : 'small',
+  ];
+  return (
+    <div id="wrapper" class={toClass(...mainClasses)}>
+      <main class={toClass(...mainClasses)}>
+        <StatsBox />
+        <Truthy value={isCameraLayout.value}>
+          <CameraFeed />
+        </Truthy>
+        <Midsection />
+        <Truthy value={isStreaming.value}>
           <ChatBox />
-          <Midsection />
-          <CameraFeed />
-        </main>
-      );
-    case 'narrow':
-      return (
-        <main class="narrow">
-          <StatsBox />
-          <TaskSection />
-          <TalonTray />
-          <CameraFeed />
-        </main>
-      );
-  }
+        </Truthy>
+      </main>
+    </div>
+  );
 };

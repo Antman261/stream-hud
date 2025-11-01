@@ -3,7 +3,7 @@ import { render } from 'preact';
 import { initTalonPolling } from './talon';
 import { windowManager } from './windowManager';
 import './main.css';
-import './main-narrow.css';
+import './main-stream.css';
 import { initWebsocket } from './service/obs';
 import { Layout } from './Layouts';
 

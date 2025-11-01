@@ -4,29 +4,34 @@
 
 import { OBSWebSocket } from 'obs-websocket-js';
 import { obsWebsocketParams } from '../env';
-import { signal } from '@preact/signals';
+import { computed, signal } from '@preact/signals';
+import { withSafety } from '../util/withSafety';
 
 type ObsStats = Awaited<ReturnType<typeof obs.call<'GetStats'>>>;
+type StreamStats = Awaited<ReturnType<typeof obs.call<'GetStreamStatus'>>>;
 
 const obs = new OBSWebSocket();
 
 let hasInit = false;
-let statsInterval: number | undefined;
+let statsInterval: NodeJS.Timeout | undefined;
 export const obsStats = signal<ObsStats | undefined>();
+export const streamStats = signal<StreamStats | undefined>();
+export const outputDuration = computed(
+  () => streamStats.value?.outputDuration ?? 0
+);
+export const isStreaming = computed(() => !!outputDuration.value);
 
 export const initWebsocket = async () => {
   if (hasInit) return;
   hasInit = true;
   try {
-    await obs.connect(...obsWebsocketParams);
     clearInterval(statsInterval);
-    setInterval(async () => {
-      try {
-        obsStats.value = await obs.call('GetStats');
-      } catch (error) {
-        console.log(error);
-      }
-      // console.log(stats.value);
+    await obs.connect(...obsWebsocketParams);
+    statsInterval = setInterval(() => {
+      withSafety(async () => (obsStats.value = await obs.call('GetStats')))();
+      withSafety(
+        async () => (streamStats.value = await obs.call('GetStreamStatus'))
+      )();
     }, 2000);
   } catch (error) {
     console.log(error);

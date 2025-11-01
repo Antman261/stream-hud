@@ -1,8 +1,7 @@
-import { signal } from '@preact/signals';
-import { MessageEvent } from '@twurple/easy-bot';
 import { mergeObjects } from '../../util/mergeObjects';
-import { username } from './constants';
+import { MESSAGE_DURATION_TS, username } from './constants';
 import { getBot } from './setupChatbot';
+import { storedSignal } from '../../state/storedSignal';
 
 type Nullish = undefined | null;
 
@@ -17,6 +16,7 @@ export type Message = {
   deleteMessage(): Promise<void>;
   sentAt: number;
 };
+type MessageInput = Omit<Message, 'sentAt' | 'deleteMessage'>;
 export type Fragment =
   | { type: 'text'; text: string }
   | { type: 'emote'; emote: Emoji }
@@ -25,34 +25,27 @@ export type Fragment =
 export type Cheermote = { prefix: string; bits: number; tier: number };
 export type Emoji = { id: string; format: string[] };
 
-const MESSAGE_DURATION_TS = 5 * 60 * 1000;
-const recent = JSON.parse(localStorage.getItem('recentChat') ?? '[]');
-
-export const messages = mergeObjects(signal<Message[]>(recent), {
-  addMessage: (
-    msg: Omit<Message, 'sentAt' | 'deleteMessage'>,
-    e?: MessageEvent
-  ) => {
-    console.log('msg:', msg);
-    messages.value = [
-      Object.assign(msg, {
-        sentAt: Date.now(),
-        deleteMessage: async () => {
-          messages.value = messages.value.filter((m) => msg !== m);
-          await getBot().deleteMessage(username, msg.id);
-        },
-      }),
-      ...messages.value.slice(0, 50),
-    ];
-  },
-  cleanExpiredMessages: () => {
-    const expiryAge = Date.now() - MESSAGE_DURATION_TS;
-    messages.value = messages.value.filter((m) => m.sentAt > expiryAge);
-  },
-} as const);
-
-messages.subscribe(() => {
-  localStorage.setItem('recentChat', JSON.stringify(messages.value));
-});
+export const messages = mergeObjects(
+  storedSignal<Message[]>([], 'recentChat'),
+  {
+    addMessage: (msg: MessageInput) => {
+      const msgs = messages.value.slice(0, 50);
+      msgs.unshift(
+        Object.assign(msg, {
+          sentAt: Date.now(),
+          deleteMessage: async () => {
+            messages.value = messages.value.filter((m) => msg !== m);
+            await getBot().deleteMessage(username, msg.id);
+          },
+        })
+      );
+      messages.value = msgs;
+    },
+    cleanExpiredMessages: () => {
+      const expiryAge = Date.now() - MESSAGE_DURATION_TS;
+      messages.value = messages.value.filter((m) => m.sentAt > expiryAge);
+    },
+  } as const
+);
 
 setInterval(messages.cleanExpiredMessages, 10_000);

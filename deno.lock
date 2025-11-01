@@ -7,8 +7,10 @@
     "npm:@tauri-apps/cli@2": "2.2.7",
     "npm:@tauri-apps/plugin-fs@~2.4.2": "2.4.2",
     "npm:@tauri-apps/plugin-opener@2": "2.5.0",
+    "npm:@tauri-apps/plugin-positioner@~2.3.1": "2.3.1",
     "npm:@tauri-apps/plugin-shell@2.2": "2.2.2",
     "npm:@tauri-apps/plugin-window-state@2.4": "2.4.0",
+    "npm:@total-typescript/ts-reset@~0.6.1": "0.6.1",
     "npm:@twurple/auth@^7.4.0": "7.4.0",
     "npm:@twurple/easy-bot@^7.4.0": "7.4.0_@twurple+auth@7.4.0",
     "npm:@twurple/eventsub-ws@^7.4.0": "7.4.0_@twurple+api@7.4.0__@twurple+auth@7.4.0_@twurple+auth@7.4.0",
@@ -631,6 +633,12 @@
         "@tauri-apps/api"
       ]
     },
+    "@tauri-apps/plugin-positioner@2.3.1": {
+      "integrity": "sha512-9JiNO3tpHhz91VUG/sncGha4CL1qQHlftnfkwWJIquAR7rhLA9GUdW1oIdZLbNswNzkkd9qVywFmh658eFEL2Q==",
+      "dependencies": [
+        "@tauri-apps/api"
+      ]
+    },
     "@tauri-apps/plugin-shell@2.2.2": {
       "integrity": "sha512-fg9XKWfzRQsN8p+Zrk82WeHvXFvGVnG0/mTlujQdLWNnO5cM6WD9qCrHbFytScVS+WhmRAkuypQPcxeKKl3VBg==",
       "dependencies": [
@@ -642,6 +650,9 @@
       "dependencies": [
         "@tauri-apps/api"
       ]
+    },
+    "@total-typescript/ts-reset@0.6.1": {
+      "integrity": "sha512-cka47fVSo6lfQDIATYqb/vO1nvFfbPw7uWLayIXIhGETj0wcOOlrlkobOMDNQOFr9QOafegUPq13V2+6vtD7yg=="
     },
     "@twurple/api-call@7.4.0": {
       "integrity": "sha512-WNxvjp/hMqZREElbvE4rHMyUIrHdGY5cbG8xbqgSM9CESFvJ1wm5BubhyANOyKd1TxABacLddbfbO//Fz9YHgA==",
@@ -1121,8 +1132,10 @@
         "npm:@tauri-apps/cli@2",
         "npm:@tauri-apps/plugin-fs@~2.4.2",
         "npm:@tauri-apps/plugin-opener@2",
+        "npm:@tauri-apps/plugin-positioner@~2.3.1",
         "npm:@tauri-apps/plugin-shell@2.2",
         "npm:@tauri-apps/plugin-window-state@2.4",
+        "npm:@total-typescript/ts-reset@~0.6.1",
         "npm:@twurple/auth@^7.4.0",
         "npm:@twurple/easy-bot@^7.4.0",
         "npm:@twurple/eventsub-ws@^7.4.0",

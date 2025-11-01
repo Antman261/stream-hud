@@ -1,15 +1,19 @@
 import { window } from '@tauri-apps/api';
-import { LogicalPosition, LogicalSize } from '@tauri-apps/api/window';
+import { LogicalSize } from '@tauri-apps/api/window';
 import { delay } from './util/delay';
+import { moveWindow, Position } from '@tauri-apps/plugin-positioner';
+import { Size } from './Size';
+import { isCameraLayout } from './isCameraLayout';
 
 type WindowManager = {
   init(): Promise<void>;
-  setWidth(logicalWidth: number): Promise<void>;
+  // setSize(size: Partial<Size>): Promise<void>;
+  setStreaming(): Promise<void>;
+  setWithCamera(): Promise<void>;
+  setSmall(): Promise<void>;
 };
 
-type Size = { width: number; height: number };
-
-let _windowManager: WindowManager | undefined;
+let _windowManager: WindowManager;
 
 export const windowManager = async (): Promise<WindowManager> => {
   if (_windowManager !== undefined) {
@@ -17,45 +21,55 @@ export const windowManager = async (): Promise<WindowManager> => {
   }
   const win = window.getCurrentWindow();
   const monitor = await window.currentMonitor();
+
   if (monitor == null) {
     await delay(100);
     return windowManager();
   }
   const scaleFactor = monitor?.scaleFactor ?? 1;
-  const yOffset = 30;
+  const yOffset = 40;
   const getSizes = async () => {
     const windowSize = (await win.outerSize())?.toLogical(scaleFactor);
     const monitorSize = monitor?.size.toLogical(scaleFactor);
     return { windowSize, monitorSize };
   };
-  const newLogicalSize = async (size: Partial<Size>) => {
+  const setLogicalSize = async (size: Partial<Size>) => {
     const { windowSize } = await getSizes();
-    return new LogicalSize(
-      size.width ?? windowSize.width,
-      size.height ?? windowSize.height
+    return win.setSize(
+      new LogicalSize(
+        size.width ?? windowSize.width,
+        size.height ?? windowSize.height
+      )
     );
   };
-  const resizeVertically = async () => {
+  const makeFullHeight = async () => {
     const { monitorSize } = await getSizes();
-    const newSize = await newLogicalSize({
+    await setLogicalSize({
       height: monitorSize.height - yOffset,
     });
-    await win.setSize(newSize);
   };
-  const positionRight = async () => {
-    const { windowSize, monitorSize } = await getSizes();
-    const xOffset = (monitorSize.width ?? 1920) - windowSize.width;
-    await win.setPosition(new LogicalPosition(xOffset, yOffset));
+  const repositionWindow = async () => {
+    await moveWindow(Position.TopLeft);
+    if (isCameraLayout.value === false) {
+      await setLogicalSize({ height: 315 });
+      await moveWindow(Position.BottomRight);
+    }
   };
   _windowManager = {
     async init() {
-      await resizeVertically();
-      await positionRight();
+      await repositionWindow();
     },
-    async setWidth(width) {
-      const newSize = await newLogicalSize({ width });
-      await win.setSize(newSize);
-      await positionRight();
+    async setStreaming() {
+      await moveWindow(Position.TopLeft);
+      await makeFullHeight();
+    },
+    async setWithCamera() {
+      await setLogicalSize({ height: 698 });
+      await moveWindow(Position.BottomRight);
+    },
+    async setSmall() {
+      await setLogicalSize({ width: 360, height: 315 });
+      await moveWindow(Position.BottomRight);
     },
   };
   return _windowManager;

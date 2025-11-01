@@ -15,7 +15,7 @@
       {
         "label": "main",
         "title": "Stream HUD",
-        "x": 4040,
+        "x": 0,
         "width": 440,
         "height": 1080,
         "decorations": false,

@@ -2,21 +2,22 @@ import './ChatBox.css';
 import { useEffect } from 'preact/hooks';
 import { Emoji, Fragment, Message, messages } from './chatState';
 import { setupChatbot } from './setupChatbot';
+import { outputDuration } from '../../service/obs';
 
 export const ChatBox = () => {
   useEffect(() => {
     setupChatbot(messages);
   }, ['']);
-  return (
+  return outputDuration.value ? (
     <div class="chat-box">{messages.value.map(ChatMessage).reverse()}</div>
-  );
+  ) : null;
 };
 
 const ChatMessage = (msg: Message) => (
   <div class="chat-message">
     <strong style={msg.color ? `color: ${msg.color}` : ''}>{msg.name}: </strong>
     <span class="text">
-      {msg.fragments.length > 1 ? msg.fragments.map(RichContent) : msg.text}
+      {msg.fragments.length > 0 ? msg.fragments.map(RichContent) : msg.text}
     </span>
     <div class="message-controls">
       <div class="message-control-item" onClick={msg.deleteMessage}>

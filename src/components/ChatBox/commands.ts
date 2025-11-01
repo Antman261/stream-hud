@@ -26,7 +26,7 @@ const commandMap: CommandMap = {
     `Follow AntmanCodes at https://bsky.app/profile/antman.bsky.social`
   ),
   lurk: (e, bot) => {
-    const msg = msgs[Math.round(Math.random() * msgs.length - 1)];
+    const msg = msgs[Math.round(Math.random() * 200) % msgs.length];
     return say(`@${e.userDisplayName} ${msg}`)(e, bot);
   },
 };
