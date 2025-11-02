@@ -8,7 +8,7 @@ import './Midsection.css';
 const CurrentTask = () => {
   return (
     <div class="semi-section current-task">
-      <h2>Current Task</h2>
+      <h2>Task</h2>
       <div class="text">{currentTask.value}</div>
     </div>
   );
