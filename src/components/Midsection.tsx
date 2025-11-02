@@ -1,4 +1,6 @@
+import { storedSignal } from '../state/storedSignal';
 import { currentProject, currentTask } from '../state/task';
+import { onEvent } from '../talon/reducer';
 import { ButtonDeck } from '../windows/ButtonDeck';
 import { CommandHistory } from '../windows/CommandHistory';
 import './Midsection.css';
@@ -27,12 +29,18 @@ export const TalonTray = () => (
   </div>
 );
 
-export const TaskSection = () => (
-  <div class="task-section column">
-    <CurrentTask />
-    <CurrentProject />
-  </div>
+const isTaskSectionHidden = storedSignal(false, 'isTaskSectionHidden');
+onEvent(
+  'TASK_SECTION_TOGGLED',
+  () => (isTaskSectionHidden.value = !isTaskSectionHidden.value)
 );
+export const TaskSection = () =>
+  isTaskSectionHidden.value ? null : (
+    <div class="task-section column">
+      <CurrentTask />
+      <CurrentProject />
+    </div>
+  );
 
 export const Midsection = () => (
   <div class="midsection">

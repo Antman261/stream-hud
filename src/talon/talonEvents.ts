@@ -26,6 +26,9 @@ export type LayoutChanged = {
   type: 'LAYOUT_CHANGED';
   kind: LayoutKind;
 } & EventBase;
+export type TaskSectionToggled = {
+  type: 'TASK_SECTION_TOGGLED';
+} & EventBase;
 
 export type Notified = {
   type: 'NOTIFIED';
@@ -40,7 +43,8 @@ export type TalonEvent =
   | Drowsed
   | Notified
   | EngineChanged
-  | LayoutChanged;
+  | LayoutChanged
+  | TaskSectionToggled;
 
 export type EventMap = {
   PHRASE_UTTERED: PhraseUttered;
@@ -50,5 +54,6 @@ export type EventMap = {
   MODES_CHANGED: ModesChanged;
   ENGINE_CHANGED: EngineChanged;
   LAYOUT_CHANGED: LayoutChanged;
+  TASK_SECTION_TOGGLED: TaskSectionToggled;
 };
 export type EventType = keyof EventMap;

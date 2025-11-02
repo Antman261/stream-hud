@@ -21,7 +21,9 @@ const withWiretaps =
     return updated;
   };
 
-const getReducer = <T extends EventType>(e: T) => reducers[e] as Reducer<T>;
+const getReducer = <T extends EventType>(e: T) =>
+  // @ts-expect-error
+  (reducers[e] ?? ((s) => s)) as Reducer<T>;
 export const talonState = compose(
   <T extends EventType>(s: State, e: EventMap[T]) => getReducer(e.type)(s, e),
   [withDebugLogging('reduceTalonState'), withWiretaps]
@@ -35,11 +37,9 @@ const reducers = {
   }),
   DROWSED: (state) => ({ ...state, status: 'ASLEEP' }),
   AWOKEN: (state) => ({ ...state, status: 'AWAKE' }),
-  PHRASE_UTTERED: (state) => state,
   MODES_CHANGED: (state, { modes }) => ({ ...state, modes }),
   ENGINE_CHANGED: (state, { engine }) => ({ ...state, engine }),
-  LAYOUT_CHANGED: (state) => state,
-} as const satisfies { [key in EventType]: Reducer<key> };
+} as const satisfies Partial<{ [key in EventType]: Reducer<key> }>;
 
 const wiretaps = {
   MIC_SELECTED: new Set<Listener<'MIC_SELECTED'>>(),
@@ -49,5 +49,6 @@ const wiretaps = {
   MODES_CHANGED: new Set<Listener<'MODES_CHANGED'>>(),
   ENGINE_CHANGED: new Set<Listener<'ENGINE_CHANGED'>>(),
   LAYOUT_CHANGED: new Set<Listener<'ENGINE_CHANGED'>>(),
+  TASK_SECTION_TOGGLED: new Set<Listener<'TASK_SECTION_TOGGLED'>>(),
 } as const;
 const getTaps = <T extends EventType>(e: T) => wiretaps[e] as Set<Listener<T>>;

@@ -10,6 +10,11 @@ const decode = <T>(v: any, defaultValue: T): T =>
 const encode = <T>(v: T): string =>
   typeof v === 'string' ? v : JSON.stringify(v);
 
+/**
+ * Create a signal persisted to and restore it from localStorage.
+ *
+ * The provided default value is only used when a value is not found in localStorage
+ */
 export const storedSignal = <T>(
   defaultValue: T,
   storageKey: string
