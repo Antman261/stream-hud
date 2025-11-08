@@ -27,7 +27,7 @@ const ChatMessage = (msg: Message) => (
   </div>
 );
 export const toEmojiUrl = (e: Emoji): string =>
-  `https://static-cdn.jtvnw.net/emoticons/v2/${e.id}/${e.format[0]}/light/3.0`;
+  `https://static-cdn.jtvnw.net/emoticons/v2/${e.id}/default/light/3.0`;
 
 const RichContent = (frag: Fragment) => (
   <span class={frag.type}>{toFragmentContent(frag)}</span>

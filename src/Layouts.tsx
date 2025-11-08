@@ -34,10 +34,10 @@ export const Layout = () => {
         <Truthy value={isCameraLayout.value}>
           <CameraFeed />
         </Truthy>
-        <Midsection />
         <Truthy value={isStreaming.value}>
           <ChatBox />
         </Truthy>
+        <Midsection />
       </main>
     </div>
   );

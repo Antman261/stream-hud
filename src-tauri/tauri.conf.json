@@ -5,7 +5,6 @@
   "identifier": "com.stream-hud.app",
   "build": {
     "beforeDevCommand": "deno task dev",
-
     "devUrl": "http://localhost:1420",
     "beforeBuildCommand": "deno task build",
     "frontendDist": "../dist"
@@ -35,6 +34,7 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "externalBin": ["binaries/stream-server"],
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",

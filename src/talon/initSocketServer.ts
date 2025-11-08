@@ -5,8 +5,9 @@ import { TalonEvent } from './talonEvents';
 
 export const initSocketListener = () => {
   listen<string>('talon-event', ({ payload }) => {
-    const event = JSON.parse(payload);
+    const event = JSON.parse(payload) as TalonEvent;
     emitToHistory(event);
+    // @ts-expect-error cbf
     state.value = talonState(state.value, event);
   });
 };

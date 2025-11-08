@@ -17,7 +17,8 @@
     "npm:obs-websocket-js@^5.0.6": "5.0.6_ws@8.18.1",
     "npm:preact@^10.25.1": "10.26.0",
     "npm:typescript@~5.6.2": "5.6.3",
-    "npm:vite@^6.0.3": "6.0.6"
+    "npm:vite@^6.0.3": "6.0.6",
+    "npm:zod@^4.1.12": "4.1.12"
   },
   "npm": {
     "@ampproject/remapping@2.3.0": {
@@ -1121,6 +1122,9 @@
     },
     "yallist@3.1.1": {
       "integrity": "sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g=="
+    },
+    "zod@4.1.12": {
+      "integrity": "sha512-JInaHOamG8pt5+Ey8kGmdcAcg3OL9reK8ltczgHTAwNhMys/6ThXHityHxVV2p3fkw/c+MAvBHFVYHFZDmjMCQ=="
     }
   },
   "workspace": {
@@ -1142,7 +1146,8 @@
         "npm:obs-websocket-js@^5.0.6",
         "npm:preact@^10.25.1",
         "npm:typescript@~5.6.2",
-        "npm:vite@^6.0.3"
+        "npm:vite@^6.0.3",
+        "npm:zod@^4.1.12"
       ]
     }
   }

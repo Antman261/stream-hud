@@ -30,8 +30,7 @@ export const setupChatbot = async (messages: ChatMessages) => {
     }, followIntervalMs);
     const websocket = new EventSubWsListener({ apiClient: bot.api });
     websocket.onChannelFollow(user, user, (e) => {
-      console.log('onChannelFollow:', e);
-      bot.say(username, pre + `Thanks for the follow ${e.userDisplayName}!`);
+      sayBot(`Thanks for the follow ${e.userDisplayName}!`);
     });
     websocket.onChannelChatMessage(user, user, (d) => {
       messages.addMessage({

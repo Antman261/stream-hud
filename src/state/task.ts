@@ -19,10 +19,10 @@ isStreaming.subscribe((streaming) => {
 });
 
 setInterval(async () => {
-  currentTask.value = await readTextFile('.current-task', {
+  currentTask.value = await readTextFile(currentPaths.task, {
     baseDir: BaseDirectory.Home,
   });
-  currentProject.value = await readTextFile('.current-project', {
+  currentProject.value = await readTextFile(currentPaths.project, {
     baseDir: BaseDirectory.Home,
   });
 }, 5000);

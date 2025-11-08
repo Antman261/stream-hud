@@ -4,7 +4,7 @@
   justify-content: end;
   background: hsl(263, 47%, 15%);
   /* height: 355px; */
-  max-height: 300px;
+  max-height: 380px;
   min-height: 200px;
   overflow: clip;
   flex:auto;

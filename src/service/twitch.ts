@@ -4,7 +4,7 @@ import {
   writeTextFile,
   mkdir,
 } from '@tauri-apps/plugin-fs';
-import { RefreshingAuthProvider } from '@twurple/auth';
+import { AccessToken, RefreshingAuthProvider } from '@twurple/auth';
 import { deftok, twClientId, twSecret } from '../env';
 import { Bot } from '@twurple/easy-bot';
 
@@ -15,9 +15,7 @@ const safeReadTextFile = async () => {
     await mkdir('', baseDir);
     return await readTextFile(tokenPath, baseDir);
   } catch (error) {
-    console.log('safeReadTextFile.error before write');
     await writeTextFile(tokenPath, JSON.stringify(deftok, null, 4), baseDir);
-    console.log('safeReadTextFile.error after write');
     return deftok;
   }
 };
@@ -25,7 +23,7 @@ const safeReadTextFile = async () => {
 export const initChatbot = async () => {
   console.log('Starting chatbot...');
 
-  const tokenData = JSON.parse(await safeReadTextFile());
+  const tokenData = JSON.parse(await safeReadTextFile()) as AccessToken;
 
   const authProvider = new RefreshingAuthProvider({
     clientId: twClientId,
@@ -45,9 +43,7 @@ export const initChatbot = async () => {
   const bot = new Bot({
     authProvider,
     channel: 'antmancodes',
-
     chatClientOptions: { requestMembershipEvents: true },
-    // commands: toBotCommands(),
     commands: [],
   });
   return bot;

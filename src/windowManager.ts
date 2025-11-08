@@ -27,7 +27,7 @@ export const windowManager = async (): Promise<WindowManager> => {
     return windowManager();
   }
   const scaleFactor = monitor?.scaleFactor ?? 1;
-  const yOffset = 40;
+  // const yOffset = 30;
   const getSizes = async () => {
     const windowSize = (await win.outerSize())?.toLogical(scaleFactor);
     const monitorSize = monitor?.size.toLogical(scaleFactor);
@@ -45,8 +45,10 @@ export const windowManager = async (): Promise<WindowManager> => {
   const makeFullHeight = async () => {
     const { monitorSize } = await getSizes();
     await setLogicalSize({
-      height: monitorSize.height - yOffset,
+      width: 360,
+      height: monitorSize.height,
     });
+    await moveWindow(Position.TopRight);
   };
   const repositionWindow = async () => {
     await moveWindow(Position.TopLeft);
@@ -60,7 +62,6 @@ export const windowManager = async (): Promise<WindowManager> => {
       await repositionWindow();
     },
     async setStreaming() {
-      await moveWindow(Position.TopLeft);
       await makeFullHeight();
     },
     async setWithCamera() {

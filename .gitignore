@@ -25,3 +25,4 @@ dist-ssr
 
 env.ts
 target
+src-tauri/binaries/stream-server*
