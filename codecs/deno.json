@@ -1,0 +1,7 @@
+{
+  "name": "codecs",
+  "exports": "./index.ts",
+  "imports": {
+    "zod": "jsr:@zod/zod@^4.1.12"
+  }
+}

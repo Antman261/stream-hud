@@ -1,10 +1,11 @@
-import { initChatbot } from '../../service/twitch';
+import { initChatbot } from '../../service/twitch.ts';
 import { EventSubWsListener } from '@twurple/eventsub-ws';
-import { ChatMessages } from './chatState';
+import { ChatMessages } from './chatState.ts';
 import { Bot } from '@twurple/easy-bot';
-import { handleCommands } from './commands';
-import { followIntervalMs, followText, pre, username } from './constants';
-import { isStreaming } from '../../service/obs';
+import { handleCommands } from './commands.ts';
+import { followIntervalMs, followText, pre, username } from './constants.ts';
+import { isStreaming } from '../../service/obs.ts';
+import { getStreamServer } from '../../streamServer.ts';
 
 type Listener = ReturnType<Bot['on']>;
 let bot: Bot;
@@ -12,10 +13,10 @@ export const getBot = (): Bot => bot;
 const sayBot = (text: string) => bot.say(username, pre + text);
 
 const userColorMap: Record<string, string> = {};
-// https://static-cdn.jtvnw.net/emoticons/v2/62836/static/light/3.0
 export const setupChatbot = async (messages: ChatMessages) => {
   try {
     const listeners: Listener[] = [];
+    const server = await getStreamServer();
     bot = await initChatbot();
     const user = await bot.api.users.getUserByName(username);
     if (user == null)
@@ -48,8 +49,9 @@ export const setupChatbot = async (messages: ChatMessages) => {
         await handleCommands(bot, e);
       })
     );
-    return () => {
+    return async () => {
       clearInterval(followInterval);
+      await server.exit();
       websocket.stop();
       listeners.forEach(bot.removeListener.bind(bot));
     };

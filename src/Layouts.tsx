@@ -1,14 +1,14 @@
-import { CameraFeed } from './components/CameraFeed';
-import { ChatBox } from './components/ChatBox/ChatBox';
-import { Midsection } from './components/Midsection';
-import { StatsBox } from './components/StatsBox/StatsBox';
-import { onEvent } from './talon/reducer';
-import { layout } from './layoutState';
-import { isStreaming } from './service/obs';
-import { Truthy } from './components/Defined';
-import { toClass } from './util';
-import { windowManager } from './windowManager';
-import { isCameraLayout } from './isCameraLayout';
+import { CameraFeed } from './components/CameraFeed.tsx';
+import { ChatBox } from './components/ChatBox/ChatBox.tsx';
+import { Midsection } from './components/Midsection.tsx';
+import { StatsBox } from './components/StatsBox/StatsBox.tsx';
+import { onEvent } from './talon/reducer.ts';
+import { layout } from './layoutState.ts';
+import { isStreaming } from './service/obs.ts';
+import { Truthy } from './components/Defined.tsx';
+import { toClass } from './util/index.ts';
+import { windowManager } from './windowManager.ts';
+import { isCameraLayout } from './isCameraLayout.ts';
 
 const updateWindowSize = async () => {
   const wm = await windowManager();

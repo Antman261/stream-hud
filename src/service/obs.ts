@@ -3,9 +3,9 @@
 // https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#inputmutestatechanged
 
 import { OBSWebSocket } from 'obs-websocket-js';
-import { obsWebsocketParams } from '../env';
+import { obsWebsocketParams } from '../env.ts';
 import { computed, signal } from '@preact/signals';
-import { withSafety } from '../util/withSafety';
+import { withSafety } from '../util/withSafety.ts';
 
 type ObsStats = Awaited<ReturnType<typeof obs.call<'GetStats'>>>;
 type StreamStats = Awaited<ReturnType<typeof obs.call<'GetStreamStatus'>>>;
@@ -13,7 +13,7 @@ type StreamStats = Awaited<ReturnType<typeof obs.call<'GetStreamStatus'>>>;
 const obs = new OBSWebSocket();
 
 let hasInit = false;
-let statsInterval: NodeJS.Timeout | undefined;
+let statsInterval: number | undefined;
 export const obsStats = signal<ObsStats | undefined>();
 export const streamStats = signal<StreamStats | undefined>();
 export const outputDuration = computed(
@@ -32,7 +32,7 @@ export const initWebsocket = async () => {
       withSafety(
         async () => (streamStats.value = await obs.call('GetStreamStatus'))
       )();
-    }, 2000);
+    }, 2000) as unknown as number;
   } catch (error) {
     console.log(error);
   }

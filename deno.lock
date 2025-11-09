@@ -16,7 +16,6 @@
     "npm:@twurple/eventsub-ws@^7.4.0": "7.4.0_@twurple+api@7.4.0__@twurple+auth@7.4.0_@twurple+auth@7.4.0",
     "npm:obs-websocket-js@^5.0.6": "5.0.6_ws@8.18.1",
     "npm:preact@^10.25.1": "10.26.0",
-    "npm:typescript@~5.6.2": "5.6.3",
     "npm:vite@^6.0.3": "6.0.6",
     "npm:zod@^4.1.12": "4.1.12"
   },
@@ -1069,10 +1068,6 @@
     "type-fest@3.13.1": {
       "integrity": "sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g=="
     },
-    "typescript@5.6.3": {
-      "integrity": "sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==",
-      "bin": true
-    },
     "undici-types@7.10.0": {
       "integrity": "sha512-t5Fy/nfn+14LuOc2KNYg75vZqClpAiqscVvMygNnlsHBFpSXdJaYtXMcdNLpl/Qvc3P2cB3s6lOV51nqsFq4ag=="
     },
@@ -1143,9 +1138,10 @@
         "npm:@twurple/auth@^7.4.0",
         "npm:@twurple/easy-bot@^7.4.0",
         "npm:@twurple/eventsub-ws@^7.4.0",
+        "npm:k@~5.6.2",
         "npm:obs-websocket-js@^5.0.6",
         "npm:preact@^10.25.1",
-        "npm:typescript@~5.6.2",
+        "npm:vite-tsconfig-paths@^5.1.4",
         "npm:vite@^6.0.3",
         "npm:zod@^4.1.12"
       ]

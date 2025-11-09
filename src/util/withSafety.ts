@@ -1,11 +1,11 @@
-import { Func } from './Func';
+import { Func } from './Func.ts';
 
 export const withSafety = <F extends Func>(f: F): F =>
-  ((...args) => {
+  (async (...args) => {
     try {
-      return f(...args);
+      return await f(...args);
     } catch (error) {
-      console.log(`Error thrown calling ${f}:`, error);
+      console.debug(`Error thrown calling ${f}:`, error);
       return error;
     }
   }) as F;

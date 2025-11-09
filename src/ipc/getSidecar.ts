@@ -1,7 +1,7 @@
 import z from 'zod/v4';
 import { Signal, signal } from '@preact/signals';
 import { Command } from '@tauri-apps/plugin-shell';
-import { jsonCodec } from './jsonCodec';
+import { jsonCodec } from 'codecs';
 
 type ZType = z.core.$ZodType;
 type Sidecar<S extends ZType, C extends ZType> = {
@@ -10,14 +10,14 @@ type Sidecar<S extends ZType, C extends ZType> = {
   exit(): Promise<void>;
 };
 
+// deno-lint-ignore no-explicit-any
 const sidecars: Record<string, Promise<Sidecar<any, any>>> = {};
 
-export const getSidecar = async <S extends ZType, C extends ZType>(
+export const getSidecar = <S extends ZType, C extends ZType>(
   name: string,
   serverMsgSchema: S,
   clientMsgSchema: C
 ): Promise<Sidecar<S, C>> => {
-  if (sidecars[name]) return sidecars[name];
   return (sidecars[name] ??= initSidecar(
     name,
     serverMsgSchema,
@@ -25,20 +25,36 @@ export const getSidecar = async <S extends ZType, C extends ZType>(
   ));
 };
 
+type Opt = Partial<{ wsPath: URL }>;
 const initSidecar = async <S extends ZType, C extends ZType>(
   name: string,
   serverMsgSchema: S,
-  clientMsgSchema: C
+  clientMsgSchema: C,
+  { wsPath }: Opt = {}
 ): Promise<Sidecar<S, C>> => {
   const serverMsgCodec = jsonCodec(serverMsgSchema);
   const clientMsgCodec = jsonCodec(clientMsgSchema);
-  const command = Command.sidecar(`binaries/${name}`);
-  command.stdout.on(
-    'data',
-    (data) => (lastMessage.value = serverMsgCodec.decode(data))
-  );
-  const child = await command.spawn();
   const lastMessage = signal<z.output<S>>();
+  const child = await spawnSidecar({
+    onStdout: (data) => (lastMessage.value = serverMsgCodec.decode(data)),
+    name,
+  });
+  if (wsPath) {
+    const ws = new WebSocket(wsPath);
+    ws.addEventListener('message', ({ data }) => {
+      console.log('stream-server(msg):', data);
+      lastMessage.value = serverMsgCodec.decode(data);
+    });
+    return {
+      send: async (msg) => ws.send(clientMsgCodec.encode(msg)),
+      lastMessage,
+      exit: async () => {
+        ws.close();
+        await child.kill();
+        delete sidecars[name];
+      },
+    };
+  }
   lastMessage.subscribe((v) => console.log('received:', v));
   return {
     send: async (msg) => {
@@ -50,4 +66,18 @@ const initSidecar = async <S extends ZType, C extends ZType>(
       delete sidecars[name];
     },
   };
+};
+
+type SpawnOptions = { onStdout: (data: string) => void; name: string };
+
+const spawnSidecar = async ({ onStdout, name }: SpawnOptions) => {
+  const command = Command.sidecar(`binaries/${name}`);
+  command.stdout.on('data', (data) => {
+    console.log('stream-server:', data);
+    onStdout(data);
+  });
+  command.stderr.on('data', (data) => {
+    console.log('stream-server:', data);
+  });
+  return await command.spawn();
 };

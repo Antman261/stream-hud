@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "paths": {
+            "codecs": ["./codecs/index.ts"]
+        },
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact"
+    }
+}

@@ -1,8 +1,8 @@
 import './ChatBox.css';
 import { useEffect } from 'preact/hooks';
-import { Emoji, Fragment, Message, messages } from './chatState';
-import { setupChatbot } from './setupChatbot';
-import { outputDuration } from '../../service/obs';
+import { Emoji, Fragment, Message, messages } from './chatState.ts';
+import { setupChatbot } from './setupChatbot.ts';
+import { outputDuration } from '../../service/obs.ts';
 
 export const ChatBox = () => {
   useEffect(() => {
