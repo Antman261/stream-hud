@@ -1,7 +1,7 @@
-import { mergeObjects } from '../../util/mergeObjects';
-import { MESSAGE_DURATION_TS, username } from './constants';
-import { getBot } from './setupChatbot';
-import { storedSignal } from '../../state/storedSignal';
+import { mergeObjects } from '../../util/mergeObjects.ts';
+import { MESSAGE_DURATION_TS, username } from './constants.ts';
+import { getBot } from './setupChatbot.ts';
+import { storedSignal } from '../../state/storedSignal.ts';
 
 type Nullish = undefined | null;
 
@@ -12,6 +12,7 @@ export type Message = {
   color: string | Nullish;
   text: string;
   fragments: Fragment[];
+  badges: string[];
   userId: string;
   deleteMessage(): Promise<void>;
   sentAt: number;

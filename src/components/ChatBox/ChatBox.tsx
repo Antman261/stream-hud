@@ -15,7 +15,10 @@ export const ChatBox = () => {
 
 const ChatMessage = (msg: Message) => (
   <div class="chat-message">
-    <strong style={msg.color ? `color: ${msg.color}` : ''}>{msg.name}: </strong>
+    <strong style={msg.color ? `color: ${msg.color}` : ''}>
+      {msg.badges.map(Badge)}
+      {msg.name}:{' '}
+    </strong>
     <span class="text">
       {msg.fragments.length > 0 ? msg.fragments.map(RichContent) : msg.text}
     </span>
@@ -45,3 +48,5 @@ const toFragmentContent = (frag: Fragment) => {
 };
 
 const EmojiFrag = (e: Emoji) => <img src={toEmojiUrl(e)} class="emoji" />;
+
+const Badge = (url: string) => <img src={url} class="badge" />;

@@ -21,6 +21,11 @@
 .emote > img {
   height: 18px;
 }
+.badge {
+  height: 14px;
+  padding-right: 2px;
+  margin-top: -2px;
+}
 .message-controls {
   position: absolute;
   right: 0;

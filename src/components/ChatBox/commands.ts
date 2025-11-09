@@ -1,6 +1,6 @@
 import { Bot, MessageEvent } from '@twurple/easy-bot';
-import { msgs } from './msgs';
-import { pre, username } from './constants';
+import { msgs } from './msgs.ts';
+import { pre, username } from './constants.ts';
 
 type BotCommandHandler = (
   e: MessageEvent,
@@ -28,6 +28,9 @@ const commandMap: CommandMap = {
   lurk: (e, bot) => {
     const msg = msgs[Math.round(Math.random() * 200) % msgs.length];
     return say(`@${e.userDisplayName} ${msg}`)(e, bot);
+  },
+  clip: async (_e, bot) => {
+    await bot.api.clips.createClip({ channel: username });
   },
 };
 commandMap.social = commandMap.socials!;

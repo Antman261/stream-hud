@@ -17,7 +17,7 @@ let statsInterval: number | undefined;
 export const obsStats = signal<ObsStats | undefined>();
 export const streamStats = signal<StreamStats | undefined>();
 export const outputDuration = computed(
-  () => streamStats.value?.outputDuration ?? 0
+  () => streamStats.value?.outputDuration ?? 1
 );
 export const isStreaming = computed(() => !!outputDuration.value);
 

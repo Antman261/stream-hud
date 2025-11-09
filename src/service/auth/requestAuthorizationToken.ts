@@ -11,6 +11,7 @@ const scopes = [
   'moderator:manage:chat_messages',
   'moderator:read:followers',
   'user:read:chat',
+  'clips:edit',
 ].join(' ');
 
 export const requestAuthorizationToken = async (): Promise<AccessToken> => {
