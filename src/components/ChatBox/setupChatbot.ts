@@ -26,7 +26,6 @@ export const setupChatbot = async (messages: ChatMessages) => {
     const server = await getStreamServer();
     bot = await initChatbot();
     const user = await bot.api.users.getUserByName(username);
-    console.log('user', user);
     if (user == null)
       throw new Error(
         `No user returned from bot.api.users.getUserByName("${username}")`!
@@ -41,23 +40,21 @@ export const setupChatbot = async (messages: ChatMessages) => {
       badges.set(b.id, b)
     );
     (await bot.api.chat.getGlobalBadges()).forEach((b) => badges.set(b.id, b));
-    console.log({ badges });
     const websocket = new EventSubWsListener({ apiClient: bot.api });
     websocket.onChannelFollow(user, user, (e) => {
       sayBot(`Thanks for the follow ${e.userDisplayName}!`);
     });
+    websocket.onChannelSubscription(user, (e) => {
+      sayBot(`Thanks for the subscription ${e.userDisplayName}!`);
+    });
     websocket.onChannelChatMessage(user, user, (d) => {
-      console.log('badges:', d.badges);
-      const badgeUrls = toBadgeUrl(d.badges);
-      console.log('badgeUrls', badgeUrls);
-
       messages.addMessage({
         id: d.messageId,
         name: d.chatterDisplayName,
         text: d.messageText,
         userId: d.chatterId,
         fragments: d.messageParts,
-        badges: badgeUrls,
+        badges: toBadgeUrl(d.badges),
         color: d.color ?? getUserColor(d.chatterId),
       });
     });

@@ -15,6 +15,8 @@ type WindowManager = {
 
 let _windowManager: WindowManager;
 
+const widthFactor = 0.1875;
+
 export const windowManager = async (): Promise<WindowManager> => {
   if (_windowManager !== undefined) {
     return _windowManager;
@@ -45,15 +47,19 @@ export const windowManager = async (): Promise<WindowManager> => {
   const makeFullHeight = async () => {
     const { monitorSize } = await getSizes();
     await setLogicalSize({
-      width: 360,
+      width: monitorSize.width * widthFactor,
       height: monitorSize.height,
     });
     await moveWindow(Position.TopRight);
   };
   const repositionWindow = async () => {
     await moveWindow(Position.TopLeft);
+    const { monitorSize } = await getSizes();
     if (isCameraLayout.value === false) {
-      await setLogicalSize({ height: 315 });
+      await setLogicalSize({
+        height: 315,
+        width: monitorSize.width * widthFactor,
+      });
       await moveWindow(Position.BottomRight);
     }
   };
@@ -63,13 +69,18 @@ export const windowManager = async (): Promise<WindowManager> => {
     },
     async setStreaming() {
       await makeFullHeight();
+      await repositionWindow();
     },
     async setWithCamera() {
       await setLogicalSize({ height: 698 });
       await moveWindow(Position.BottomRight);
     },
     async setSmall() {
-      await setLogicalSize({ width: 360, height: 315 });
+      const { monitorSize } = await getSizes();
+      await setLogicalSize({
+        width: monitorSize.width * widthFactor,
+        height: 315,
+      });
       await moveWindow(Position.BottomRight);
     },
   };

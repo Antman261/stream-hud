@@ -17,7 +17,7 @@ let statsInterval: number | undefined;
 export const obsStats = signal<ObsStats | undefined>();
 export const streamStats = signal<StreamStats | undefined>();
 export const outputDuration = computed(
-  () => streamStats.value?.outputDuration ?? 1
+  () => streamStats.value?.outputDuration ?? 0
 );
 export const isStreaming = computed(() => !!outputDuration.value);
 
@@ -27,13 +27,24 @@ export const initWebsocket = async () => {
   try {
     clearInterval(statsInterval);
     await obs.connect(...obsWebsocketParams);
-    statsInterval = setInterval(() => {
-      withSafety(async () => (obsStats.value = await obs.call('GetStats')))();
-      withSafety(
+    statsInterval = setInterval(async () => {
+      const p1 = withSafety(
+        async () => (obsStats.value = await obs.call('GetStats'))
+      )();
+      const p2 = withSafety(
         async () => (streamStats.value = await obs.call('GetStreamStatus'))
       )();
+      if ((await p1) instanceof Error) {
+        obsStats.value = undefined;
+      }
+      if ((await p2) instanceof Error) {
+        streamStats.value = undefined;
+      }
     }, 2000) as unknown as number;
   } catch (error) {
+    hasInit = false;
+    obsStats.value = undefined;
+    statsInterval = setInterval(initWebsocket, 20_000) as unknown as number;
     console.log(error);
   }
 };
