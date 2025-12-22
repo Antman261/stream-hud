@@ -4,20 +4,24 @@
 }
 
 .command-history {
-  height: 230px;
-  max-height: 230px;
+  /* height: 230px;
+  max-height: 230px; */
   margin: 0 0 3px 0;
   width: 100%;
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content:space-between;
   text-align: center;
+  min-height: 0;
 }
 .command-history-entries {
   overflow: clip;
   display: flex;
   flex-direction: column;
   justify-content:flex-end;
+  flex: 1;
+  min-height: 0;
 }
 
 .command-history .entry {

@@ -7,7 +7,6 @@ import { signal } from '@preact/signals';
 
 export const StatsBox = () => (
   <div class="stats-box">
-    <Clock />
     <StatsScope name="Talon">
       <Defined value={state.value.engine}>
         <StatsItem>{engineName.value}</StatsItem>

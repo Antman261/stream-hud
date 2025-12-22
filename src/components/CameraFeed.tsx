@@ -4,6 +4,7 @@ import './CameraFeed.css';
 
 const style = `
 max-height: 415px;
+min-height: 366px;
 overflow-y: clip;
 margin: 7px;
 border-radius: 18px;
@@ -13,7 +14,6 @@ box-shadow: 1px 1px 16px rgba(0, 0, 0, 0.6)
 const getWebcam = async () => {
   await navigator.mediaDevices.enumerateDevices();
   const devices = await navigator.mediaDevices.enumerateDevices();
-  console.log({ devices });
   return navigator.mediaDevices.getUserMedia({
     audio: false,
     video: {
@@ -34,16 +34,8 @@ export const CameraFeed = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const startVideo = useCallback(async () => {
     const webcam = await getWebcam();
-    const [webcamTrack, ...others] = webcam.getVideoTracks();
+    const [webcamTrack, ..._] = webcam.getVideoTracks();
     selectedCamera.value = webcamTrack?.label ?? 'None';
-    console.log('others:', others);
-
-    console.log('selectedWebcam:', webcamTrack?.label);
-    console.log({
-      settings: webcamTrack?.getSettings(),
-      capabilities: webcamTrack?.getCapabilities(),
-      constraints: webcamTrack?.getConstraints(),
-    });
     if (videoRef.current === null) return;
     videoRef.current.srcObject = webcam;
     videoRef.current.play();

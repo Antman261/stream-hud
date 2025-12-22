@@ -1,8 +1,7 @@
-import { storedSignal } from '../state/storedSignal';
-import { currentProject, currentTask } from '../state/task';
-import { onEvent } from '../talon/reducer';
-import { ButtonDeck } from '../windows/ButtonDeck';
-import { CommandHistory } from '../windows/CommandHistory';
+import { storedSignal } from '../state/storedSignal.ts';
+import { currentProject, currentTask } from '../state/task.ts';
+import { onEvent } from '../talon/reducer.ts';
+import { CommandHistory } from '../windows/CommandHistory/index.ts';
 import './Midsection.css';
 
 const CurrentTask = () => {
@@ -25,7 +24,7 @@ const CurrentProject = () => {
 export const TalonTray = () => (
   <div class="talon-tray-section">
     <CommandHistory />
-    <ButtonDeck />
+    {/* <ButtonDeck /> */}
   </div>
 );
 

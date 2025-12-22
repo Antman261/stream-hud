@@ -1,21 +1,21 @@
 import './CommandHistory.css';
 import { signal } from '@preact/signals';
-import { Notified, PhraseUttered } from '../../talon';
+import { Notified, PhraseUttered } from '../../talon/index.ts';
 import { listen } from '@tauri-apps/api/event';
 import { JSX } from 'preact/jsx-runtime';
-import { OfType } from '../../util';
+import { OfType } from '../../util/index.ts';
 
 type HistoryEvent = PhraseUttered | Notified;
 
 const commands = signal<HistoryEvent[]>([]);
 
 listen<HistoryEvent>('ENTRY_ADDED', ({ payload }) => {
-  commands.value = [payload, ...commands.value.slice(0, 8)];
+  commands.value = [payload, ...commands.value.slice(0, 25)];
 });
 
 export const CommandHistory = () => (
   <div class="command-history">
-    <h2>Voice Command History</h2>
+    <h2 data-tauri-drag-region>Voice Command History</h2>
     <div class="command-history-entries">
       {[...commands.value].reverse().map(CommandHistoryItem)}
     </div>

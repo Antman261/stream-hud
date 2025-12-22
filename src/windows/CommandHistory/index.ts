@@ -1,1 +1,1 @@
-export * from './CommandHistory';
+export * from './CommandHistory.tsx';

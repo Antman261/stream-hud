@@ -10,78 +10,71 @@ type WindowManager = {
   // setSize(size: Partial<Size>): Promise<void>;
   setStreaming(): Promise<void>;
   setWithCamera(): Promise<void>;
-  setSmall(): Promise<void>;
+  setHeight(height: Height): Promise<void>;
 };
 
-let _windowManager: WindowManager;
+type Height = keyof typeof heights;
 
-const widthFactor = 0.1875;
+const yOffset = 40;
+const widthFactor = 0.12;
+const heights = { tiny: 110, short: 300, medium: 708 } as const;
+let _windowManager: WindowManager;
+const isAlreadyRunning = (): boolean => _windowManager !== undefined;
+
+const getWinMonitor = async () => {
+  const win = window.getCurrentWindow();
+  let monitor: window.Monitor | null;
+  do {
+    await delay(10);
+    monitor = await window.currentMonitor();
+  } while (monitor == null);
+
+  return { win, monitor };
+};
+
+const getWindowSize = async (
+  win: window.Window,
+  scaleFactor: number
+): Promise<LogicalSize> => (await win.outerSize())?.toLogical(scaleFactor);
 
 export const windowManager = async (): Promise<WindowManager> => {
-  if (_windowManager !== undefined) {
-    return _windowManager;
-  }
-  const win = window.getCurrentWindow();
-  const monitor = await window.currentMonitor();
-
-  if (monitor == null) {
-    await delay(100);
-    return windowManager();
-  }
+  if (isAlreadyRunning()) _windowManager;
+  const { win, monitor } = await getWinMonitor();
   const scaleFactor = monitor?.scaleFactor ?? 1;
-  // const yOffset = 30;
-  const getSizes = async () => {
-    const windowSize = (await win.outerSize())?.toLogical(scaleFactor);
-    const monitorSize = monitor?.size.toLogical(scaleFactor);
-    return { windowSize, monitorSize };
+  const monitorSize = monitor?.size.toLogical(scaleFactor);
+  await win.setFocusable(false);
+  const positionWithSize = async (size: Partial<Size>) => {
+    await setLogicalSize(size);
+    await moveWindow(Position.BottomLeft);
   };
   const setLogicalSize = async (size: Partial<Size>) => {
-    const { windowSize } = await getSizes();
-    return win.setSize(
-      new LogicalSize(
-        size.width ?? windowSize.width,
-        size.height ?? windowSize.height
-      )
+    const { width, height } = await getWindowSize(win, scaleFactor);
+    await win.setSize(
+      new LogicalSize(size.width ?? width, size.height ?? height)
     );
   };
-  const makeFullHeight = async () => {
-    const { monitorSize } = await getSizes();
-    await setLogicalSize({
-      width: monitorSize.width * widthFactor,
-      height: monitorSize.height,
-    });
-    await moveWindow(Position.TopRight);
-  };
   const repositionWindow = async () => {
-    await moveWindow(Position.TopLeft);
-    const { monitorSize } = await getSizes();
-    if (isCameraLayout.value === false) {
-      await setLogicalSize({
-        height: 315,
-        width: monitorSize.width * widthFactor,
-      });
-      await moveWindow(Position.BottomRight);
-    }
+    await positionWithSize({
+      height: isCameraLayout.value === false ? heights.short : -yOffset,
+      width: monitorSize.width * widthFactor,
+    });
   };
   _windowManager = {
     async init() {
+      while (!isAlreadyRunning()) await delay(10);
       await repositionWindow();
     },
     async setStreaming() {
-      await makeFullHeight();
       await repositionWindow();
     },
     async setWithCamera() {
-      await setLogicalSize({ height: 698 });
-      await moveWindow(Position.BottomRight);
+      await positionWithSize({ height: heights.medium });
     },
-    async setSmall() {
-      const { monitorSize } = await getSizes();
+    async setHeight(height: Height) {
       await setLogicalSize({
         width: monitorSize.width * widthFactor,
-        height: 315,
+        height: heights[height],
       });
-      await moveWindow(Position.BottomRight);
     },
   };
   return _windowManager;

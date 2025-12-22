@@ -1,5 +1,5 @@
 import { signal, Signal } from '@preact/signals';
-import { withSafety } from '../util/withSafety';
+import { withSafety } from '../util/withSafety.ts';
 
 const decode = <T>(v: any, defaultValue: T): T =>
   v == null

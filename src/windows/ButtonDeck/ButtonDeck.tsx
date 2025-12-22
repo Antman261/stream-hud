@@ -1,10 +1,14 @@
 import './ButtonDeck.css';
-import { toClass } from '../../util';
-import { isAwake, isMicActive, isMixedMode, isStreamMode } from '../../talon';
-import { TalonMicIcon } from '../../components/MicMeter/TalonMicIcon';
-import { TalonStatusIcon } from '../../components/TalonStatusIcon';
-import { TalonModeIcons } from '../../components/TalonModeIcons';
-import { VerticalBar } from '../../elements/VerticalBar';
+import { toClass } from '../../util/index.ts';
+import {
+  isAwake,
+  isMicActive,
+  isMixedMode,
+  isStreamMode,
+} from '../../talon/index.ts';
+import { TalonMicIcon } from '../../components/MicMeter/TalonMicIcon.tsx';
+import { TalonModeIcons } from '../../components/TalonModeIcons.tsx';
+import { VerticalBar } from '../../elements/VerticalBar.tsx';
 
 export const ButtonDeck = () => {
   const classes = toClass(
@@ -18,7 +22,6 @@ export const ButtonDeck = () => {
       <TalonModeIcons />
       <VerticalBar />
       <TalonMicIcon />
-      <TalonStatusIcon />
     </div>
   );
 };

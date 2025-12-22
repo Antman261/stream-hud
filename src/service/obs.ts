@@ -6,6 +6,7 @@ import { OBSWebSocket } from 'obs-websocket-js';
 import { obsWebsocketParams } from '../env.ts';
 import { computed, signal } from '@preact/signals';
 import { withSafety } from '../util/withSafety.ts';
+import { layout } from '../layoutState.ts';
 
 type ObsStats = Awaited<ReturnType<typeof obs.call<'GetStats'>>>;
 type StreamStats = Awaited<ReturnType<typeof obs.call<'GetStreamStatus'>>>;
@@ -19,7 +20,9 @@ export const streamStats = signal<StreamStats | undefined>();
 export const outputDuration = computed(
   () => streamStats.value?.outputDuration ?? 0
 );
-export const isStreaming = computed(() => !!outputDuration.value);
+export const isStreaming = computed(
+  () => !!outputDuration.value || layout.value === 'stream'
+);
 
 export const initWebsocket = async () => {
   if (hasInit) return;

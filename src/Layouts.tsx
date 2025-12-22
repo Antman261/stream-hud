@@ -1,7 +1,7 @@
 import { CameraFeed } from './components/CameraFeed.tsx';
 import { ChatBox } from './components/ChatBox/ChatBox.tsx';
 import { Midsection } from './components/Midsection.tsx';
-import { StatsBox } from './components/StatsBox/StatsBox.tsx';
+// import { StatsBox } from './components/StatsBox/StatsBox.tsx';
 import { onEvent } from './talon/reducer.ts';
 import { layout } from './layoutState.ts';
 import { isStreaming } from './service/obs.ts';
@@ -14,7 +14,8 @@ const updateWindowSize = async () => {
   const wm = await windowManager();
   if (isStreaming.value) return await wm.setStreaming();
   if (isCameraLayout.value) return wm.setWithCamera();
-  await wm.setSmall();
+  if (layout.value === 'tiny') return await wm.setHeight('tiny');
+  await wm.setHeight('short');
 };
 onEvent('LAYOUT_CHANGED', (e) => {
   layout.value = e.kind;
@@ -30,7 +31,6 @@ export const Layout = () => {
   return (
     <div id="wrapper" class={toClass(...mainClasses)}>
       <main class={toClass(...mainClasses)}>
-        <StatsBox />
         <Truthy value={isCameraLayout.value}>
           <CameraFeed />
         </Truthy>

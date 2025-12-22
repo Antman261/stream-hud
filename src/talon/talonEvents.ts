@@ -21,7 +21,7 @@ export type EngineChanged = {
   engine: string;
 } & EventBase;
 
-export type LayoutKind = 'stream' | 'narrow';
+export type LayoutKind = 'stream' | 'narrow' | 'cam' | 'tiny';
 export type LayoutChanged = {
   type: 'LAYOUT_CHANGED';
   kind: LayoutKind;

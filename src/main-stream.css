@@ -5,12 +5,10 @@ main.stream {
 
 main.narrow {
   border-left: 2px solid hsla(255, 94%, 79%, 0.5);
-  border-radius: 12px;
 }
 
 main.small {
   border-left: 2px solid hsla(255, 94%, 79%, 0.5);
-  border-radius: 12px;
 }
 
 #wrapper.small {

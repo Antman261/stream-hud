@@ -1,13 +1,13 @@
 .button-deck {
-  height: 37pt;
+  height: 30pt;
   display: flex;
   flex-direction: row;
   justify-content: right;
   align-items: center;
   background: hsla(224, 85%, 24%, 1);
   transition: background-color 1s ease-out;
-  gap: 15px;
-  padding: 0 15px 0 5px;
+  gap: 10px;
+  padding: 0 10px 0 3px;
 }
 .button-deck.bg-stream {
   background: hsla(300, 95%, 15%, 1);

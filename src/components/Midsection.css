@@ -1,14 +1,20 @@
 .midsection {
   display: flex;
+  flex: 1;
   flex-direction:row;
   border-top: 2px solid hsla(255, 94%, 79%, 0.5);
-  border-bottom: 2px solid hsla(255, 94%, 79%, 0.5);
+  min-height: 0;
+  /* border-bottom: 2px solid hsla(255, 94%, 79%, 0.5); */
 }
 
 .talon-tray-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   flex-grow: 1;
-  border-left: 2px solid hsla(255, 94%, 79%, 0.5);
+  /* border-left: 2px solid hsla(255, 94%, 79%, 0.5); */
   width: 62%;
+  min-height: 0;
 }
 
 .current-task .text {
@@ -28,4 +34,5 @@
 
 .task-section {
   width: 38%;
+  border-right: 2px solid hsla(255, 94%, 79%, 0.5);
 }
